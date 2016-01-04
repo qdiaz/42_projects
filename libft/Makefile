@@ -6,7 +6,7 @@
 #    By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/26 13:00:32 by qdiaz             #+#    #+#              #
-#    Updated: 2015/12/15 11:17:44 by qdiaz            ###   ########.fr        #
+#    Updated: 2016/01/04 10:42:15 by qdiaz            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -79,7 +79,10 @@ SRCS = ft_atoi.c\
 	ft_strrev.c\
 	ft_swap.c\
 	ft_strupcase.c\
-	ft_strdowncase.c
+	ft_strdowncase.c\
+	ft_strcdup.c\
+	ft_strndup.c\
+	ft_strclen.c
 
 OBJS = $(SRCS:.c=.o)
 

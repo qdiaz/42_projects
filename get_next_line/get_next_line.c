@@ -1,35 +1,68 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2016/01/04 09:57:13 by qdiaz             #+#    #+#             */
+/*   Updated: 2016/01/04 14:34:06 by qdiaz            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "get_next_line.h"
 
-int		read_line(char **buf, int fd)
+static int		my_realloc(int const fd, char **tmp, int *ret)
 {
-	char	buffer[BUFF_SIZE + 1];
-	int		read_bytes;
+	char	*buffer;
 
-	read_bytes = 1;
-	while (ft_strstr(*buf, "\n") == NULL && read_bytes != 0)
-	{
-		if ((read_bytes = read(fd, buffer, BUFF_SIZE)) == -1)
-			return (-1);
-		buffer[read_bytes] = '\0';
-		*buf = ft_strjoin(*buf, buffer);
-		ft_memset(buffer, 0, read_bytes);
-	}
-	return (read_bytes);
+	buffer = ft_strnew(BUFF_SIZE + 1);
+	if ((*ret = read(fd, buffer, BUFF_SIZE)) == -1)
+		return (-1);
+	if (*tmp == '\0')
+		*tmp = ft_strnew(0);
+	buffer[*ret] = '\0';
+	*tmp = ft_strjoin(*tmp, buffer);
+	free(buffer);
+	return (0);
 }
 
-int		get_next_line(int const fd, char **line)
+static int		get_endl(char **tmp, char **line)
 {
-	static char	*buf;
-	char		*tmp;
-	int			read_bytes;
+	char	*str;
 
-	if (BUFF_SIZE > MAX_SIZE_BUFFER || BUFF_SIZE <= 0 || fd == 1)
+	if ((str = ft_strchr(*tmp, '\n')))
+	{
+		*str = '\0';
+		*line = ft_strdup(*tmp);
+		ft_memmove(*tmp, str + 1, ft_strlen(str + 1) + 1);
+		return (1);
+	}
+	return (0);
+}
+
+int				get_next_line(int const fd, char **line)
+{
+	static char		*tmp[1024];
+	int				ret;
+
+	if (!line || fd < 0)
 		return (-1);
-	if ((read_bytes = read_line(&buf, fd)) == -1)
-		return (-1);
-	*line = ft_strcdup(buf, '\n');
-	tmp = buf;
-	buf = ft_strdup(buf + ft_strclen(buf, '\n') + 1);
-	free(tmp);
-	return (read_bytes == 0) ? 0 : 1;
+	ret = BUFF_SIZE;
+	while (ret > 0 || ft_strlen(tmp[fd]))
+	{
+		if ((get_endl(&tmp[fd], line)) == 1)
+			return (1);
+		if (my_realloc(fd, &tmp[fd], &ret) == -1)
+			return (-1);
+		if (ret == 0 && ft_strlen(tmp[fd]))
+		{
+			*line = ft_strdup(tmp[fd]);
+			ft_bzero(tmp[fd], ft_strlen(tmp[fd]));
+			return (1);
+		}
+	}
+	free(tmp[fd]);
+	*tmp = NULL;
+	return (0);
 }

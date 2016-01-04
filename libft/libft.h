@@ -6,7 +6,7 @@
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/26 13:37:15 by qdiaz             #+#    #+#             */
-/*   Updated: 2015/12/15 11:18:19 by qdiaz            ###   ########.fr       */
+/*   Updated: 2016/01/04 10:41:23 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,5 +87,8 @@ char				*ft_strrev(char *s);
 void				ft_swap(int *a, int *b);
 char				*ft_strupcase(char *s);
 char				*ft_strdowncase(char *s);
+char				*ft_strndup(const char *s1, size_t n);
+char				*ft_strcdup(const char *s1, char a);
+size_t				ft_strclen(const char *str, char a);
 
 #endif

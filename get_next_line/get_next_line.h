@@ -1,16 +1,26 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2016/01/04 09:56:57 by qdiaz             #+#    #+#             */
+/*   Updated: 2016/01/04 14:05:58 by qdiaz            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef GET_NEXT_LINE_H
-
 # define GET_NEXT_LINE_H
-# define BUFF_SIZE	10
-# define MAX_SIZE_BUFFER 8000000
+# define BUFF_SIZE 2
 
-//# include "libft.h"
-# include <sys/types.h>
-# include <sys/uio.h>
 # include <unistd.h>
 # include <stdlib.h>
 # include <string.h>
+# include <sys/types.h>
+# include <sys/uio.h>
+# include "libft/includes/libft.h"
 
-int		get_next_line(int const fd, char **line);
+int			get_next_line(int const fd, char **line);
 
 #endif
