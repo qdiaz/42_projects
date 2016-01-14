@@ -6,28 +6,31 @@
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/04 09:57:13 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/01/04 16:36:29 by qdiaz            ###   ########.fr       */
+/*   Updated: 2016/01/13 16:44:23 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-static int		my_realloc(int const fd, char **tmp, int *ret)
+static int		ft_realloc(int const fd, char **tmp, int *ret)
 {
-	char	*buffer;
+	char	buffer[BUFF_SIZE + 1];
+	char	*to_free;
 
-	buffer = ft_strnew(BUFF_SIZE + 1);
+	ft_memset(buffer, 0, BUFF_SIZE + 1);
 	if ((*ret = read(fd, buffer, BUFF_SIZE)) == -1)
 		return (-1);
 	if (*tmp == '\0')
 		*tmp = ft_strnew(0);
 	buffer[*ret] = '\0';
+	to_free = *tmp;
 	*tmp = ft_strjoin(*tmp, buffer);
-	free(buffer);
+	//if (to_free)
+		free(to_free);
 	return (0);
 }
 
-static int		get_endl(char **tmp, char **line)
+static int		ft_get_nl(char **tmp, char **line)
 {
 	char	*str;
 
@@ -36,6 +39,8 @@ static int		get_endl(char **tmp, char **line)
 		*str = '\0';
 		*line = ft_strdup(*tmp);
 		ft_memmove(*tmp, str + 1, ft_strlen(str + 1) + 1);
+		//if (*line)
+			free(*line);
 		return (1);
 	}
 	return (0);
@@ -51,9 +56,9 @@ int				get_next_line(int const fd, char **line)
 	ret = BUFF_SIZE;
 	while (ret > 0 || ft_strlen(tmp[fd]))
 	{
-		if ((get_endl(&tmp[fd], line)) == 1)
+		if ((ft_get_nl(&tmp[fd], line)) == 1)
 			return (1);
-		if (my_realloc(fd, &tmp[fd], &ret) == -1)
+		if (ft_realloc(fd, &tmp[fd], &ret) == -1)
 			return (-1);
 		if (ret == 0 && ft_strlen(tmp[fd]))
 		{

@@ -6,13 +6,13 @@
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/04 09:56:57 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/01/04 14:05:58 by qdiaz            ###   ########.fr       */
+/*   Updated: 2016/01/13 11:29:11 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
-# define BUFF_SIZE 2
+# define BUFF_SIZE 8000000
 
 # include <unistd.h>
 # include <stdlib.h>
