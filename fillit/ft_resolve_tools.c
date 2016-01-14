@@ -6,7 +6,7 @@
 /*   By: adu-pelo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/17 16:51:38 by adu-pelo          #+#    #+#             */
-/*   Updated: 2015/12/17 18:06:38 by adu-pelo         ###   ########.fr       */
+/*   Updated: 2016/01/12 15:48:09 by adu-pelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,88 +15,97 @@
 static int		*ft_get_coord(int **tetri)
 {
 	int		*coord;
-	int		x;
-	int		y;
 	int		j;
+	int		l;
+	int		c;
 
-	if ((coord = malloc(sizeof(int) * 8)) == NULL)
-		return (NULL);
-	x = 0;
+	l = 0;
 	j = 0;
-	while (x < 4)
+	if (!(coord = malloc(sizeof(int) * 8)))
+		return (NULL);
+	while (l < 4)
 	{
-		y = 0;
-		while (y < 4)
+		c = 0;
+		while (c < 4)
 		{
-			if (tetri[x][y] > 0)
+			if (tetri[l][c] > 0)
 			{
-				coord[j] = x;
-				coord[j + 1] = y;
+				coord[j] = l;
+				coord[j + 1] = c;
 				j += 2;
 			}
-			y++;
+			c++;
 		}
-		x++;
+		l++;
 	}
 	return (coord);
 }
 
-static void		placement(int **tab, int **resol, int line, int col)
+static void		ft_place(int **tab, int **resol, int line, int col)
 {
-	int		*x;
+	int		*coord;
 	int		j;
 
 	j = 0;
-	x = ft_get_coord(tab);
+	coord = ft_get_coord(tab);
 	while (j < 8)
 	{
-		resol[line + (x[j] - x[0])][col + (x[j + 1] - x[1])] =
-			tab[x[j]][x[j + 1]];
+		resol[line + (coord[j] - coord[0])][col + (coord[j + 1] - coord[1])] =
+			tab[coord[j]][coord[j + 1]];
 		j += 2;
 	}
+	free(coord);
+	coord = NULL;
 }
 
-static void		desempiler(int **resol, int piece_nb)
+static void		ft_reset(int **resol, int piece_nb)
 {
-	int		i[2];
+	int		l;
+	int		c;
 
-	i[0] = 0;
-	while (resol[i[0]][0] != -1)
+	l = 0;
+	while (resol[l][0] != -1)
 	{
-		i[1] = 0;
-		while (resol[0][i[1]] != -1)
+		c = 0;
+		while (resol[0][c] != -1)
 		{
-			if (resol[i[0]][i[1]] == piece_nb + 1)
-				resol[i[0]][i[1]] = 0;
-			i[1]++;
+			if (resol[l][c] == piece_nb + 1)
+				resol[l][c] = 0;
+			c++;
 		}
-		i[0]++;
+		l++;
 	}
 }
 
-static int		check_placement(int **tab, int **resol, int line, int col)
+static int		ft_check_place(int **tab, int **resol, int line, int col)
 {
-	int		*x;
+	int		*coord;
 	int		j;
 
-	x = ft_get_coord(tab);
+	coord = ft_get_coord(tab);
 	j = 0;
 	while (j < 8)
 	{
-		if (resol[line + (x[j] - x[0])][col + (x[j + 1] - x[1])] != 0 ||
-				col + (x[j + 1] - x[1]) < 0)
-			return (0);
+		if (resol[line + (coord[j] - coord[0])][col + (coord[j + 1] -
+					coord[1])] != 0 || col + (coord[j + 1] - coord[1]) < 0)
+		{
+			free(coord);
+			coord = NULL;
+			return (FALSE);
+		}
 		j += 2;
 	}
-	return (1);
+	free(coord);
+	coord = NULL;
+	return (TRUE);
 }
 
-int				recursive_placement(int ***tab, int **resol, int piece_nb)
+int				ft_recursive_resol(int ***tab, int **resol, int piece_nb)
 {
 	int		i[2];
 
 	if (tab[piece_nb] == NULL)
-		return (1);
+		return (TRUE);
 	i[0] = 0;
 	while (resol[i[0]][0] != -1)
 	{
@@ -104,16 +113,16 @@ int				recursive_placement(int ***tab, int **resol, int piece_nb)
 		while (resol[0][i[1]] != -1)
 		{
 			if (resol[i[0]][i[1]] == 0)
-				if (check_placement(tab[piece_nb], resol, i[0], i[1]) == 1)
+				if (ft_check_place(tab[piece_nb], resol, i[0], i[1]) == TRUE)
 				{
-					placement(tab[piece_nb], resol, i[0], i[1]);
-					if (recursive_placement(tab, resol, piece_nb + 1) == 1)
-						return (1);
-					desempiler(resol, piece_nb);
+					ft_place(tab[piece_nb], resol, i[0], i[1]);
+					if (ft_recursive_resol(tab, resol, piece_nb + 1) == TRUE)
+						return (TRUE);
+					ft_reset(resol, piece_nb);
 				}
 			i[1]++;
 		}
 		i[0]++;
 	}
-	return (0);
+	return (FALSE);
 }
