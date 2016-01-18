@@ -6,7 +6,7 @@
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/04 09:56:47 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/01/13 11:25:44 by qdiaz            ###   ########.fr       */
+/*   Updated: 2016/01/14 11:43:01 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ int		main(int argc, char **argv)
 			if (ret == 1)
 			{
 				ft_putnbr(ret);
-				//ft_putstr(" --> ");
-				//ft_putendl(str);
+				ft_putstr(" --> ");
+				ft_putstr(str);
 				//if (str)
 				//	free(str);
 			}
