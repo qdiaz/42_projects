@@ -1,35 +1,53 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ls.h                                               :+:      :+:    :+:   */
+/*   ft_ls.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: adu-pelo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/01/14 13:19:10 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/01/14 15:36:06 by qdiaz            ###   ########.fr       */
+/*   Created: 2016/01/09 14:59:58 by adu-pelo          #+#    #+#             */
+/*   Updated: 2016/01/20 18:34:14 by adu-pelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_LS_H
 # define FT_LS_H
 
-#include "libft/libft.h"
-#include <dirent.h>
-#include <sys/stat.h>
-#include <pwd.h>
-#include <uuid/uuid.h>
-#include <grp.h>
-#include <sys/attr.h>
-#include <time.h>
-#include <stdio.h>
+# include "./libft/libft.h"
 
-typedef struct		s_option
+# include <unistd.h> // write, readlink
+# include <dirent.h> // opendir, readdir, closedir
+# include <sys/stat.h> // stat, lstat
+# include <pwd.h> // getpwuid
+# include <uuid/uuid.h> // getpwuid, getgrgid
+# include <grp.h> // getgrgid
+# include <sys/xattr.h> // listxattr, getxattr
+# include <time.h> // time, ctime
+# include <stdlib.h> // malloc, free, exit
+# include <stdio.h> // perror, strerror
+
+typedef struct 		s_opt
 {
 	int				l;
-	int				r_big;
-	int				a;
-	int				r;
-	int				t;
-}					t_option;
+	int 			R;
+	int 			a;
+	int 			r;
+	int 			t;
+	char			error;
+}					t_opt;
+
+typedef struct		s_info
+{
+	mode_t			mode;
+	uid_t			uid;
+	gid_t			gid;
+}					t_info;
+
+typedef struct		s_lst
+{
+	char			*name;
+	//char 			*path;
+	struct s_lst 	*next;
+}					t_lst;
 
 #endif

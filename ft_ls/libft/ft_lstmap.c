@@ -3,32 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: adu-pelo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/12/09 14:04:58 by qdiaz             #+#    #+#             */
-/*   Updated: 2015/12/09 14:24:35 by qdiaz            ###   ########.fr       */
+/*   Created: 2015/12/09 11:42:10 by adu-pelo          #+#    #+#             */
+/*   Updated: 2015/12/14 10:44:17 by adu-pelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list		*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem))
+t_list	*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem))
 {
-	t_list	*new_lst;
-	t_list	*new_elem;
-	t_list	*prev_elem;
+	t_list *newlst;
+	t_list *newlm;
+	t_list *prevlm;
 
-	new_lst = NULL;
-	new_lst = (*f)(lst);
-	prev_elem = new_lst;
+	newlst = NULL;
+	newlst = f(lst);
+	prevlm = newlst;
 	lst = lst->next;
 	while (lst)
 	{
-		new_elem = (*f)(lst);
-		prev_elem->next = new_elem;
-		prev_elem = new_elem;
+		newlm = f(lst);
+		prevlm->next = newlm;
+		prevlm = newlm;
 		lst = lst->next;
 	}
-	prev_elem->next = NULL;
-	return (new_lst);
+	prevlm->next = NULL;
+	return (newlst);
 }

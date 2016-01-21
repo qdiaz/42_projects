@@ -3,22 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strsplit.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: adu-pelo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/12/01 15:26:17 by qdiaz             #+#    #+#             */
-/*   Updated: 2015/12/02 14:23:00 by qdiaz            ###   ########.fr       */
+/*   Created: 2015/11/30 17:41:51 by adu-pelo          #+#    #+#             */
+/*   Updated: 2015/12/14 10:46:17 by adu-pelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int		ft_count(char const *s, char c)
+static int		ft_array_size(char const *s, char c)
 {
-	int cmp;
-	int	i;
+	int		i;
+	int		cnt;
 
-	cmp = 0;
 	i = 0;
+	cnt = 0;
 	while (*s)
 	{
 		if (i == 1 && *s == c)
@@ -26,16 +26,16 @@ static int		ft_count(char const *s, char c)
 		if (i == 0 && *s != c)
 		{
 			i = 1;
-			cmp++;
+			cnt++;
 		}
 		s++;
 	}
-	return (cmp);
+	return (cnt);
 }
 
-static int		ft_nstr(char const *s, char c)
+static int		ft_word_len(char const *s, char c)
 {
-	int	len;
+	int		len;
 
 	len = 0;
 	while (*s && *s != c)
@@ -48,25 +48,25 @@ static int		ft_nstr(char const *s, char c)
 
 char			**ft_strsplit(char const *s, char c)
 {
-	char	**t;
 	int		i;
-	int		word_nb;
+	int		nb_word;
+	char	**tab;
 
 	i = 0;
-	word_nb = ft_count(s, c);
-	t = (char **)malloc(sizeof(char *) * (ft_count(s, c)) + 1);
-	if (t == NULL)
+	nb_word = ft_array_size(s, c);
+	tab = (char **)malloc(sizeof(char *) * (ft_array_size(s, c)) + 1);
+	if (tab == NULL)
 		return (NULL);
-	while (word_nb--)
+	while (nb_word--)
 	{
 		while (*s && *s == c)
 			s++;
-		t[i] = ft_strsub((const char *)s, 0, ft_nstr(s, c));
-		if (t[i] == NULL)
+		tab[i] = ft_strsub((const char *)s, 0, ft_word_len(s, c));
+		if (tab[i] == NULL)
 			return (NULL);
-		s = s + ft_nstr(s, c);
+		s = s + ft_word_len(s, c);
 		i++;
 	}
-	t[i] = NULL;
-	return (t);
+	tab[i] = NULL;
+	return (tab);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strrev.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: adu-pelo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/12/15 10:51:05 by qdiaz             #+#    #+#             */
-/*   Updated: 2015/12/15 11:07:12 by qdiaz            ###   ########.fr       */
+/*   Created: 2015/12/02 13:04:18 by adu-pelo          #+#    #+#             */
+/*   Updated: 2015/12/09 10:47:15 by adu-pelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*ft_strrev(char *s)
 	char	tmp;
 
 	start = 0;
-	end = ft_strlen(s);
+	end = ft_strlen(s) - 1;
 	while (start < end)
 	{
 		tmp = s[start];

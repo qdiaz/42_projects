@@ -3,32 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: adu-pelo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/11/26 17:33:50 by qdiaz             #+#    #+#             */
-/*   Updated: 2015/11/30 14:39:13 by qdiaz            ###   ########.fr       */
+/*   Created: 2015/11/24 16:53:05 by adu-pelo          #+#    #+#             */
+/*   Updated: 2015/12/07 11:06:41 by adu-pelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t		ft_strlcat(char *dst, const char *src, size_t size)
+size_t	ft_strlcat(char *dst, const char *src, size_t size)
 {
-	char			*d;
-	const char		*s;
-	size_t			n;
-	size_t			d_len;
+	char		*d;
+	const char	*s;
+	size_t		n;
+	size_t		dlen;
 
 	d = dst;
 	s = src;
 	n = size;
-	while (n-- != 0 && *d != '\0')
+	while (n-- > 0 && *d)
 		d++;
-	d_len = d - dst;
-	n = size - d_len;
+	dlen = d - dst;
+	n = size - dlen;
 	if (n == 0)
-		return (d_len + ft_strlen(s));
-	while (*s != '\0')
+		return (dlen + ft_strlen(s));
+	while (*s)
 	{
 		if (n != 1)
 		{
@@ -38,5 +38,5 @@ size_t		ft_strlcat(char *dst, const char *src, size_t size)
 		s++;
 	}
 	*d = '\0';
-	return (d_len + (s - src));
+	return (dlen + (s - src));
 }

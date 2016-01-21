@@ -1,21 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tolower.c                                          :+:      :+:    :+:   */
+/*   ft_memdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: adu-pelo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/11/23 16:37:31 by adu-pelo          #+#    #+#             */
-/*   Updated: 2015/12/07 11:11:56 by adu-pelo         ###   ########.fr       */
+/*   Created: 2015/12/09 11:06:57 by adu-pelo          #+#    #+#             */
+/*   Updated: 2015/12/09 12:14:32 by adu-pelo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_tolower(int c)
+void	*ft_memdup(const void *s, size_t n)
 {
-	if (c >= 65 && c <= 90)
-		return (c + 32);
-	else
-		return (c);
+	void *cpy;
+
+	if (!(cpy = malloc(sizeof(unsigned char) * n)))
+		return (NULL);
+	ft_memcpy(cpy, s, n);
+	return (cpy);
 }
