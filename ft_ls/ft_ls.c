@@ -6,10 +6,11 @@
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/23 14:48:25 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/01/23 14:48:30 by qdiaz            ###   ########.fr       */
+/*   Updated: 2016/01/23 14:54:58 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft_ls.h"
 #include <stdio.h> // remove
 
 static void	init_struct_info(t_info *info)
