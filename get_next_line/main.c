@@ -3,47 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: fviolin <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/01/04 09:56:47 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/01/14 11:43:01 by qdiaz            ###   ########.fr       */
+/*   Created: 2016/01/15 09:44:27 by fviolin           #+#    #+#             */
+/*   Updated: 2016/01/20 09:47:43 by fviolin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <fcntl.h>
+#include <stdio.h>
 
-int		main(int argc, char **argv)
+int		main(int ac, char **av)
 {
 	int		fd;
-	char	*str;
-	int		ret;
+	int		ret_value;
+	char	*line;
 
-	if (argc == 2)
-		fd = open(argv[1], O_RDWR | O_CREAT);
-	else
-		fd = 0;
-	//ret = 1;
-	if (argc == 2)
+	line = NULL;
+	fd = open(av[1], O_RDONLY);
+	if (fd == -1)
+		return (-1);
+	ret_value = 1;
+	while (ret_value == 1)
 	{
-		//while (ret == 1)
-		//{
-			ret = get_next_line(fd, &str);
-			if (ret == 1)
-			{
-				ft_putnbr(ret);
-				ft_putstr(" --> ");
-				ft_putstr(str);
-				//if (str)
-				//	free(str);
-			}
-			if (ret == -1)
-				ft_putendl("An error occured");
-			if (ret == 0 || ret == -1)
-				return (0);
-			//while (1) {}
-		//}
+		ret_value = get_next_line(fd, &line);
+		printf("%d || %s\n", ret_value, line);
 	}
-	ft_putchar('\n');
+	close(fd);
 	return (0);
 }
