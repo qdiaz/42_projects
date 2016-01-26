@@ -6,7 +6,7 @@
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/23 14:51:40 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/01/25 14:58:43 by qdiaz            ###   ########.fr       */
+/*   Updated: 2016/01/26 12:55:15 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int				get_next_line(int const fd, char **line)
 	char		*str;
 	int			ret;
 
-	if (fd <= 0 || fd > 256 || !line || BUFF_SIZE <= 0)
+	if (fd < 0 || fd > 256 || !line || BUFF_SIZE <= 0)
 		return (-1);
 	if (ft_get_line(line, overf[fd], overf[fd]) == 1)
 		return (1);
