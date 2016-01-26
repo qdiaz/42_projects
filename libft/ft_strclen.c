@@ -6,7 +6,7 @@
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/23 14:32:54 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/01/04 10:04:33 by qdiaz            ###   ########.fr       */
+/*   Updated: 2016/01/26 12:59:09 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ size_t		ft_strclen(const char *str, char a)
 	size_t i;
 
 	i = 0;
-	while (str[i] != '\0' && str[i] != 'a')
+	while (str[i] != '\0' && str[i] != a)
 		i++;
 	return (i);
 }
