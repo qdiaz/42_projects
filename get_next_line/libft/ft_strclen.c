@@ -1,21 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcdup.c                                       :+:      :+:    :+:   */
+/*   ft_strclen.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/11/24 15:38:41 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/01/04 10:45:35 by qdiaz            ###   ########.fr       */
+/*   Created: 2015/11/23 14:32:54 by qdiaz             #+#    #+#             */
+/*   Updated: 2016/01/25 11:51:19 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strcdup(const char *s1, char a)
+size_t		ft_strclen(const char *str, char a)
 {
-	char *cpy;
+	size_t i;
 
-	cpy = ft_strndup(s1, ft_strclen(s1, a));
-	return (cpy);
+	i = 0;
+	while (str[i] != '\0' && str[i] != a)
+		i++;
+	return (i);
 }

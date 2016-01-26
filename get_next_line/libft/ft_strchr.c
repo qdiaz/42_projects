@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strclen.c                                       :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/11/23 14:32:54 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/01/04 10:49:35 by qdiaz            ###   ########.fr       */
+/*   Created: 2015/11/26 12:29:35 by qdiaz             #+#    #+#             */
+/*   Updated: 2015/11/30 14:39:28 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t		ft_strclen(const char *str, char a)
+char	*ft_strchr(const char *s, int c)
 {
-	size_t i;
-
-	i = 0;
-	while (str[i] != '\0' && str[i] != a)
-		i++;
-	return (i);
+	while (*s && *s != (char)c)
+		s++;
+	if (*s != (char)c)
+		return (NULL);
+	else
+		return ((char *)s);
 }

@@ -6,7 +6,7 @@
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/23 14:51:40 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/01/23 14:53:53 by qdiaz            ###   ########.fr       */
+/*   Updated: 2016/01/25 14:58:43 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static int		ft_get_line(char **line, char *buf, char *overf)
 {
 	char *tmp;
 
-	if ((tmp = ft_strchr(buf, '\n')) || (tmp = ft_strchr(buf, EOF)))
+	if ((tmp = ft_strchr(buf, '\n')))
 	{
 		*tmp = '\0';
 		*line = ft_strdup(buf);
@@ -37,16 +37,17 @@ static int		ft_get_line(char **line, char *buf, char *overf)
 
 int				get_next_line(int const fd, char **line)
 {
-	static char overf[255][BUFF_SIZE + 1];
+	static char overf[256][BUFF_SIZE + 1];
 	char		buf[BUFF_SIZE + 1];
 	char		*str;
 	int			ret;
 
-	if (fd < 0 || !line)
+	if (fd <= 0 || fd > 256 || !line || BUFF_SIZE <= 0)
 		return (-1);
 	if (ft_get_line(line, overf[fd], overf[fd]) == 1)
 		return (1);
 	str = ft_strdup(overf[fd]);
+	ft_memset(overf[fd], 0, BUFF_SIZE + 1);
 	ft_bzero(buf, BUFF_SIZE + 1);
 	while ((ret = read(fd, buf, BUFF_SIZE)) != 0)
 	{
@@ -60,6 +61,5 @@ int				get_next_line(int const fd, char **line)
 			return (1);
 		}
 	}
-	*line = str;
-	return (0);
+	return ((*line = str) && ft_strlen(*line) != 0);
 }
