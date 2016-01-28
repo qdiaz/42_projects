@@ -5,194 +5,168 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/01/23 14:48:25 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/01/23 14:54:58 by qdiaz            ###   ########.fr       */
+/*   Created: 2016/01/28 15:29:38 by qdiaz             #+#    #+#             */
+/*   Updated: 2016/01/28 16:10:15 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
-#include <stdio.h> // remove
+#include <stdio.h> // test
 
-static void	init_struct_info(t_info *info)
+t_lst		*lstnew(char *path)
 {
-	ft_putendl("--- INIT INFO STRUCT ---\n");
-	info->mode = 0;
-	info->uid = 0;
-	info->gid = 0;
+	t_lst *new;
+
+	if (!(new = malloc(sizeof(t_lst))))
+		return (NULL);
+	new->name = path;
+	new->next = NULL;
+	return (new);
 }
 
-static void	get_stat_info(char *path, struct stat *st, t_info *info)
+static void	err_illegal_opt(t_opt *flags)
 {
-	struct passwd *pwd;
+	ft_putstr_fd("ft_ls: illegal option -- ", 2);
+	ft_putchar_fd(flags->error, 2);
+	ft_putchar_fd('\n', 2);
+	ft_putstr_fd("usage: ft_ls [-Ralrt] [file ...]\n", 2);
+	exit(2); // 0 if everything ok, > 0 when error
+}
 
-	if (stat(path, st) == -1) // get stat of path
+static void	init_struct_opt(t_opt *flags)
+{
+	ft_putendl("--- INIT OPT STRUCT ---\n"); // test
+	flags->l = 0;
+	flags->R = 0;
+	flags->a = 0;
+	flags->r = 0;
+	flags->t = 0;
+	flags->error = 0;
+}
+
+static int	is_valid_opt(char c)
+{
+	if (c)
+		if (c == 'l' || c == 'R' || c == 'a' || c == 'r' || c == 't')
+			return (0);
+	return (1);
+}
+
+static int	get_opt(char *input, t_opt *opt)
+{
+	int i;
+
+	ft_putstr("--- OPTIONS INPUT ---\n\n"); // test
+	ft_putendl(&input[i]); // test
+	ft_putstr("\n"); // test
+	if (input[0] == '-' && is_valid_opt(input[1]) == 0)
 	{
-		ft_putendl("cant get stat info");
-		exit(EXIT_FAILURE);
-	}
-	if ((pwd = getpwuid(st->st_uid)) != NULL)
-	{
-		info->uid = st->st_uid;
-		info->gid = st->st_gid;
-		info->mode = st->st_mode;
-		//printf("st_uid dans struct stat : %u\n\n", st->st_uid);
-		//printf("pw_name dans struct passwd : %s\n\n", pwd->pw_name);
-		//printf("uid saved in struct info : %u\n\n", info->uid);
-	}
-}
-
-static void	display_info(t_info *info)
-{
-	ft_putendl("--- INFO SAVED ---\n");
-	printf("mode in my struct is : %hu\n", info->mode);
-	printf("uid in my struct is : %u\n", info->uid);
-	printf("gid in my struct is is : %u\n", info->gid);
-}
-
-static int get_size(char *path, struct stat *st)
-{
-	int size;
-
-	if (stat(path, st) == -1)
-	{
-		ft_putendl("get_size failed :(");
-		exit(EXIT_FAILURE);
-	}
-	else
-		size = st->st_size;
-	return (size);
-}
-
-static int cnt_ghosts(struct dirent *rd)
-{
-	int cnt;
-
-	cnt = 0;
-	if ((rd->d_name[0]) == '.') // count . and ..
-		cnt++;
-	else
-		return (0);
-	return (cnt);
-}
-
-static int define_protection(char *path, struct stat *st) // useless
-{
-	int str = 0;
-
-	if (stat(path, st) == 1)
-	{
-		ft_putendl("define_protecion failed :(");
-		exit(EXIT_FAILURE);
+		i = 1;
+		init_struct_opt(opt);
+		while (input[i] && is_valid_opt(input[i]) == 0)
+		{
+			if (input[i] == 'l')
+				opt->l = 1;
+			if (input[i] == 'R')
+				opt->R = 1;
+			if (input[i] == 'a')
+				opt->a = 1;
+			if (input[i] == 'r')
+				opt->r = 1;
+			if (input[i] == 't')
+				opt->t = 1;
+			i++;
+		}
 	}
 	else
-		str = st->st_mode;
-	return (str);
+		return (1);
+	ft_putendl("--- STRUCT OPT FILLED ---\n"); // test
+	if (input[i])
+	{
+		opt->error = input[i];
+		err_illegal_opt(opt);
+	}
+	return (0);
 }
 
-static int cnt_objects(struct dirent *rd, struct stat *st)
+static void	get_path(int i, int ac, char **av, t_lst **start)
 {
-	int cnt;
+	int j;
 
-	cnt = 0;
-	if (ft_strcmp(rd->d_name, ".") != 0 && ft_strcmp(rd->d_name, "..") != 0)
+	ft_putendl("--- PATH SAVED ---\n"); // test
+	if (i == 1 && ac >= 3) // i = 1 = opt
 	{
-		ft_putstr("object name : ");
-		ft_putendl(rd->d_name);
-		cnt++;
+		j = 2;
+		while (j < ac)
+		{
+			ft_putendl(av[j]); // test
+			*start = lstnew(av[j]);
+			j++;
+		}
 	}
-	return (cnt);
+	if (i == 0 && ac >= 2)
+	{
+		j = 1;
+		while (j < ac)
+		{
+			ft_putendl(av[j - 1]); // test
+			*start = lstnew(av[j]);
+			j++;
+		}
+	}
+	ft_putendl(""); // test
+	if ((i == 1 && ac < 3) || (i == 0 && ac < 2)) // test
+		ft_putendl("--- NO PATH TO GET ---\n"); // test
 }
 
-struct passwd *get_uid(char *path, struct stat *st)
+static void	print_opt(t_opt *opt) // test
 {
-	struct passwd *pwd;
-
-	if (stat(path, st) == 1)
-	{
-		ft_putendl("get_uid failed :(");
-		exit(EXIT_FAILURE);
-	}
-	if ((pwd = getpwuid(st->st_uid)) != NULL)
-		printf("user id : %s\n", pwd->pw_name);
-	return (pwd);
+	ft_putendl("--- OPT SAVED  ---\n");
+	printf("l is : %d\n", opt->l);
+	printf("R is : %d\n", opt->R);
+	printf("a is : %d\n", opt->a);
+	printf("r is : %d\n", opt->r);
+	printf("t is : %d\n", opt->t);
 }
 
-struct group *get_gid(char *path, struct stat *st)
+void	print_lst(t_lst **begin_lst) // test
 {
-	struct group *grp;
+	t_lst *tmp;
 
-	if (stat(path, st) == 1)
+	tmp = *begin_lst;
+	while (tmp)
 	{
-		ft_putendl("get_gid failed :(");
-		exit(EXIT_FAILURE);
+		printf("\n%s\n", tmp->name);
+		tmp = tmp->next;
 	}
-	if ((grp = getgrgid(st->st_gid)) != NULL)
-	{
-		printf("group id : %s\n", grp->gr_name);
-	}
-	return (grp);
-}
-
-static void get_time(char *path, struct stat *st)
-{
-	if (stat(path, st) == 1)
-	{
-		ft_putendl("get_time failed :(");
-		exit(EXIT_FAILURE);
-	}
-	printf("time last modif : %s\n", ctime(&st->st_mtime));
 }
 
 int		main(int ac, char **av)
 {
-	t_info	info;
+	int		i;
+	char 	*input;
+	t_opt 	opt;
+	t_lst	*start;
 
-	int cnt_obj;
-	int cnt_gh;
-	int	size_tot;
-	struct stat st;
-	struct passwd *uid = NULL; // user id
-	int str = 0; // useless
-	DIR *dir = NULL; // directory name
-	char *path = NULL;
-	char *protec = NULL; // protection type
-	struct dirent *rd = NULL;
-
-	if (ac != 1)
-		path = av[1];
+	i = 0;
+	start = NULL;
+	opt = (t_opt){0, 0, 0, 0, 0};
+	if (ac > 1)
+	{
+		if (av[1][0] == '-')
+		{
+			i = 1;
+			if (get_opt(av[1], &opt) == 1)
+			{
+				err_illegal_opt(&opt);
+				return (1);
+			}
+		}
+		get_path(i, ac, av, &start);
+	}
 	else
-	{
-		ft_putendl("WRONG NUMBER OF ARGS");
-		return (1);
-	}
-	dir = opendir(path); // ouverture du dossier path
-	while ((rd = readdir(dir)) != NULL) // tant qu'on a pas lu tt le contenu
-	{
-		cnt_obj += cnt_objects(rd, &st);
-		size_tot += get_size(path, &st);
-		cnt_gh += cnt_ghosts(rd);
-		str = define_protection(path, &st); // useless
-		uid = get_uid(path, &st); // not used
-		get_gid(path, &st);
-		get_time(path, &st);
-		//ft_putstr("Protection type  : ");
-		//ft_putnbr(str);
-		//ft_putstr("\n\n");
-	}
-	ft_putstr("\nnumber of objects (files + dir, without ghosts) in this dir : ");
-	ft_putnbr(cnt_obj);
-	ft_putstr("\n\n");
-
-	ft_putstr("total size of objects in this dir : ");
-	ft_putnbr(size_tot);
-	ft_putstr("\n\n");
-
-	ft_putstr("number of ghost in this dir : ");
-	ft_putnbr(cnt_gh);
-	ft_putstr("\n\n");
-
-	init_struct_info(&info);
-	get_stat_info(path, &st, &info);
-	display_info(&info);
+		ft_putendl("--- NO ARGS ---\n"); // test
+	print_opt(&opt); // test
+	print_lst(&start);
 	return (0);
 }
