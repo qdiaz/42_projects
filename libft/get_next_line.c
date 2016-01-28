@@ -6,11 +6,11 @@
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/23 14:51:40 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/01/26 12:55:15 by qdiaz            ###   ########.fr       */
+/*   Updated: 2016/01/28 15:40:29 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "libft.h"
 
 static char		*ft_mem_concat(char *str, char *buf)
 {

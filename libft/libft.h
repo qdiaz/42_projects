@@ -6,12 +6,13 @@
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/26 13:37:15 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/01/26 13:00:36 by qdiaz            ###   ########.fr       */
+/*   Updated: 2016/01/28 15:41:13 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
+# define BUFF_SIZE 2
 
 # include <string.h>
 # include <stdlib.h>
