@@ -1,0 +1,59 @@
+= Host-specific information ====================================================
+$> hostname; uname -msr
+e3r6p8.42.fr
+Darwin 15.3.0 x86_64
+$> date
+Mon Feb  8 13:15:55 CET 2016
+$> gcc --version
+Configured with: --prefix=/Applications/Xcode.app/Contents/Developer/usr --with-gxx-include-dir=/usr/include/c++/4.2.1
+Apple LLVM version 7.0.2 (clang-700.1.81)
+Target: x86_64-apple-darwin15.3.0
+Thread model: posix
+$> clang --version
+Apple LLVM version 7.0.2 (clang-700.1.81)
+Target: x86_64-apple-darwin15.3.0
+Thread model: posix
+
+= User files collection ========================================================
+Collecting user files from Vogsphere
+Repository URL: auto-exam/2016/c-exam-beginner/practice-exam_20160208/qdiaz
+
+= Git history ==================================================================
+$> git -C /var/folders/f0/gh85m36n7bqfwzny4rvy8rdr0000gq/T/tmp_NzDqI/user log --pretty='%H - %an, %ad : %s'
+7163cda619d175128740374b86fb493a88b059c1 - Quentin DIAZ, Mon Feb 8 13:15:40 2016 +0100 : sort_list
+4447a68c35a30d21d2340347b9b68e98f9a70799 - Quentin DIAZ, Mon Feb 8 12:38:17 2016 +0100 : hidenp
+ 
+= Collected files ==========================================
+$> ls -lAR /var/folders/f0/gh85m36n7bqfwzny4rvy8rdr0000gq/T/tmp_NzDqI/user
+total 8
+-rw-r--r--  1 deepthought  deepthought  555 Feb  8 13:15 __GIT_HISTORY
+drwxr-xr-x  3 deepthought  deepthought  102 Feb  8 13:15 hidenp
+drwxr-xr-x  4 deepthought  deepthought  136 Feb  8 13:15 sort_list
+
+/var/folders/f0/gh85m36n7bqfwzny4rvy8rdr0000gq/T/tmp_NzDqI/user/hidenp:
+total 8
+-rw-r--r--  1 deepthought  deepthought  1340 Feb  8 13:15 hidenp.c
+
+/var/folders/f0/gh85m36n7bqfwzny4rvy8rdr0000gq/T/tmp_NzDqI/user/sort_list:
+total 16
+-rw-r--r--  1 deepthought  deepthought   969 Feb  8 13:15 list.h
+-rw-r--r--  1 deepthought  deepthought  2038 Feb  8 13:15 sort_list.c
+ 
+= sort_list ====================================================================
+$> clang -Wextra -Wall -Werror sort_list.c main.c -o user_exe 
+sort_list.c:20:2: error: use of undeclared identifier 'wh'
+        wh      ile (lst)
+        ^
+sort_list.c:15:29: error: unused parameter 'lst' [-Werror,-Wunused-parameter]
+static int              lst_len(t_list *lst)
+                                        ^
+sort_list.c:91:17: error: expected ';' after top level declarator
+t_list                  *sort_l ist(t_list *lst, int (*cmp)(int, int))
+                               ^
+                               ;
+3 errors generated.
+
+Could not compile 'user_exe'
+Grade: 0
+
+= Final grade: 0 ===============================================================
