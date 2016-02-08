@@ -5,24 +5,23 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/01/28 15:29:52 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/01/28 16:11:01 by qdiaz            ###   ########.fr       */
+/*   Created: 2016/02/02 11:54:29 by qdiaz             #+#    #+#             */
+/*   Updated: 2016/02/02 11:54:32 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-void	init_opt(t_opt *opt)
+static void	init_opt(t_opt *opt)
 {
 	opt->l = 0;
 	opt->R = 0;
 	opt->a = 0;
 	opt->r = 0;
 	opt->t = 0;
-	opt->error = 0;
 }
 
-void	print_opt(t_opt *opt) // test
+static void	print_opt(t_opt *opt) // test
 {
 	ft_putendl("--- OPT SAVED ---\n");
 	printf("l is -> %d\n", opt->l);
@@ -30,25 +29,22 @@ void	print_opt(t_opt *opt) // test
 	printf("a is -> %d\n", opt->a);
 	printf("r is -> %d\n", opt->r);
 	printf("t is -> %d\n\n", opt->t);
-	if (opt->error)
-		printf("error is -> %d\n\n", opt->error);
 }
 
-static void err_opt(t_opt *opt)
+static void	err_opt(char *err)
 {
 	ft_putstr_fd("ft_ls: illegal option -- ", 2);
-	ft_putchar_fd(opt->error, 2);
-	ft_putchar_fd('\n', 2);
+	ft_putendl_fd(err, 2);
 	ft_putstr_fd("usage: ft_ls [-Ralrt] [file ...]\n", 2);
 	exit(EXIT_FAILURE);
 }
 
-static int valid_opt(char c)
+static int 	valid_opt(char c)
 {
 	return ((c == 'l' || c == 'R' || c == 'a' || c == 'r' || c == 't'));
 }
 
-int	get_opt(char *str, t_opt *opt)
+int			get_opt(char *str, t_opt *opt)
 {
 	int i;
 
@@ -69,10 +65,7 @@ int	get_opt(char *str, t_opt *opt)
 		i++;
 	}
 	if (str[i])
-	{
-		opt->error = str[i];
-		err_opt(opt); // return (-1)
-	}
+		err_opt(&str[i]);
 	print_opt(opt);
 	return (0);
 }
