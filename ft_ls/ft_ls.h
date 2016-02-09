@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/02/02 11:54:11 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/02/02 11:54:16 by qdiaz            ###   ########.fr       */
+/*   Created: 2016/02/09 11:51:29 by qdiaz             #+#    #+#             */
+/*   Updated: 2016/02/09 11:51:31 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,16 @@ typedef struct		s_lst // stock file info
 
 void	get_param(char *path);
 int		get_opt(char *str, t_opt *opt);
-void	padding(t_lst *lst); // test
+void	padding(t_lst *lst);
+
+char	*format_size(char *s);
+
+void	lst_add(t_lst **start, t_lst *new);
+t_lst	*lst_sort_ascii(t_lst *lst);
+
+// basic functions
+
+void	ft_putstr_s(char *s);
+void	ft_putnbr_endl(int n);
 
 #endif
