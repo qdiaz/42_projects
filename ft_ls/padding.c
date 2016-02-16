@@ -5,19 +5,29 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/02/09 11:52:12 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/02/09 11:52:14 by qdiaz            ###   ########.fr       */
+/*   Created: 2016/02/16 12:55:45 by qdiaz             #+#    #+#             */
+/*   Updated: 2016/02/16 12:55:47 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-char	*modif_str(char *str, int max)
+static void	init_pad(t_pad *pad)
 {
-	int i;
-	int j;
-	int k;
-	char *tmp;
+	pad->len_usr = 0;
+	pad->len_grp = 0;
+	pad->len_lnk = 0;
+	pad->len_siz = 0;
+	pad->len_maj = 0;
+	pad->len_min = 0;
+}
+
+static char	*put_s_before(char *str, int max)
+{
+	int		i;
+	int		j;
+	int		k;
+	char	*tmp;
 
 	i = 0;
 	j = max - (int)ft_strlen(str);
@@ -40,45 +50,45 @@ char	*modif_str(char *str, int max)
 		return (str);
 }
 
-void	apply_padding(int len_usr, int len_grp, int len_lnk, int len_siz, t_lst *lst)
+static void	apply_padding(t_pad *pad, t_lst *lst)
 {
 	t_lst *tmp;
 
 	tmp = lst;
 	while (tmp)
 	{
-		tmp->link = modif_str(tmp->link, len_lnk);
-		tmp->user_id = modif_str(tmp->user_id, len_usr);
-		tmp->group_id = modif_str(tmp->group_id, len_grp);
-		tmp->size = modif_str(tmp->size, len_siz);
+		tmp->link = put_s_before(tmp->link, pad->len_lnk);
+		tmp->user_id = ft_strnjoin(tmp->user_id, " ", (pad->len_usr - ft_strlen(tmp->user_id)));
+		tmp->group_id = ft_strnjoin(tmp->group_id, " ", (pad->len_grp - ft_strlen(tmp->group_id)));
+		tmp->size = put_s_before(tmp->size, pad->len_siz);
+		tmp->maj = put_s_before(tmp->maj, pad->len_maj);
+		tmp->min = put_s_before(tmp->min, pad->len_min);
 		tmp = tmp->next;
 	}
 }
 
-void	padding(t_lst *lst)
+void		padding(t_lst *lst)
 {
 	t_lst	*tmp;
-	size_t	len_grp;
-	size_t	len_usr;
-	size_t	len_lnk;
-	size_t	len_siz;
+	t_pad	pad;
 
 	tmp = lst;
-	len_usr = 0;
-	len_grp = 0;
-	len_lnk = 0;
-	len_siz = 0;
+	init_pad(&pad);
 	while (tmp->next)
 	{
-		if (len_usr < ft_strlen(tmp->next->user_id))
-			len_usr = ft_strlen(tmp->next->user_id);
-		if (len_grp < ft_strlen(tmp->next->group_id))
-			len_grp = ft_strlen(tmp->next->group_id);
-		if (len_lnk < ft_strlen(tmp->next->link))
-			len_lnk = ft_strlen(tmp->next->link);
-		if (len_siz < ft_strlen(tmp->next->size))
-			len_siz = ft_strlen(tmp->next->size);
+		if (pad.len_usr < ft_strlen(tmp->next->user_id))
+			pad.len_usr = ft_strlen(tmp->next->user_id);
+		if (pad.len_grp < ft_strlen(tmp->next->group_id))
+			pad.len_grp = ft_strlen(tmp->next->group_id);
+		if (pad.len_lnk < ft_strlen(tmp->next->link))
+			pad.len_lnk = ft_strlen(tmp->next->link);
+		if (pad.len_siz < ft_strlen(tmp->next->size))
+			pad.len_siz = ft_strlen(tmp->next->size);
+		if (pad.len_maj < ft_strlen(tmp->next->maj))
+			pad.len_maj = ft_strlen(tmp->next->maj);
+		if (pad.len_min < ft_strlen(tmp->next->min))
+			pad.len_min = ft_strlen(tmp->next->min);
 		tmp = tmp->next;
 	}
-	apply_padding(len_usr, len_grp, len_lnk, len_siz, lst);
+	apply_padding(&pad, lst);
 }

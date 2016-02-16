@@ -5,31 +5,13 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/02/09 11:51:54 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/02/09 11:51:58 by qdiaz            ###   ########.fr       */
+/*   Created: 2016/02/16 12:55:20 by qdiaz             #+#    #+#             */
+/*   Updated: 2016/02/16 12:55:23 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
-
-static void	display_llst(t_lst *lst)
-{
-	t_lst *tmp;
-
-	tmp = lst;
-	while (tmp)
-	{
-		ft_putstr_s(tmp->perm);
-		ft_putstr_s(tmp->link);
-		ft_putstr_s(tmp->user_id);
-		ft_putstr_s(tmp->group_id);
-		ft_putstr_s(tmp->size);
-		ft_putstr_s(tmp->date);
-		ft_putendl(tmp->name);
-		tmp = tmp->next;
-	}
-	lst->next = NULL;
-}
+#include <stdio.h> // test
 
 char	*add_slash(char *path)
 {
@@ -38,24 +20,38 @@ char	*add_slash(char *path)
 	return (path);
 }
 
-static void	count_total(t_lst *lst)
+char	*remove_slash(char *path)
 {
-	int res;
+	if (path[ft_strlen(path - 1)] == '/')
+		path[ft_strlen(path) - 1] = '\0';
+	return (path);
+}
 
-	res = 0;
-	while (lst)
-	{
-		res += lst->blok;
-		lst = lst->next;
-	}
-	ft_putstr("total ");
-	ft_putnbr_endl(res);
+static char	get_file_type(struct stat *st, t_lst *lst)
+{
+	char c;
+
+	if (S_ISDIR(st->st_mode)) // directory
+		c = 'd';
+	if (S_ISLNK(st->st_mode)) // sym link
+		c = 'l';
+	if (S_ISCHR(st->st_mode)) // character special
+		c = 'c';
+	if (S_ISBLK(st->st_mode)) // block special
+		c = 'b';
+	else if (S_ISFIFO(st->st_mode)) // named pipe (fifo)
+		c = 'p';
+	else if (S_ISSOCK(st->st_mode)) // socket
+		c = 's';
+	else
+		c = '-';
+	return (c);
 }
 
 static void get_perm(struct stat *st, t_lst *lst)
 {
 	ft_bzero(lst->perm, 11);
-	lst->perm[0] = (S_ISDIR(st->st_mode)) ? 'd' : '-';
+	lst->perm[0] = get_file_type(st, lst);
 	lst->perm[1] = (st->st_mode & S_IRUSR) ? 'r' : '-';
 	lst->perm[2] = (st->st_mode & S_IWUSR) ? 'w' : '-';
 	lst->perm[3] = (st->st_mode & S_IXUSR) ? 'x' : '-';
@@ -69,12 +65,14 @@ static void get_perm(struct stat *st, t_lst *lst)
 
 static void	fill_info(struct stat st, t_lst *new, char *file)
 {
-	//lst->chem = path;
 	new->name = file;
 	new->date = ft_strsub(ctime(&st.st_mtime), 4, 12);
+	new->date_id = (int)st.st_mtime;
 	new->link = ft_itoa(st.st_nlink);
 	new->size = format_size(ft_itoa(st.st_size));
 	new->blok = st.st_blocks;
+	new->maj = ft_strjoin(ft_itoa(major(st.st_rdev)), ",");
+	new->min = ft_itoa(minor(st.st_rdev));
 	get_perm(&st, new);
 	new->next = NULL;
 }
@@ -103,50 +101,115 @@ t_lst	*get_info(t_lst *head, char *file, char *path)
 	return (head);
 }
 
-void	get_param(char *path)
+void	manage_opt(t_lst *lst, t_opt *opt)
+{
+	int hidd;
+
+	hidd = 0;
+	if (!opt || (opt->l == 0 && opt->R == 0 && opt->a == 0 && opt->r == 0 && opt->t == 0))
+		display_lst(lst, 0);
+	else
+	{
+		if (opt->a)
+			hidd = 1;
+		if (opt->t)
+			lst = lst_sort_time(lst);
+		if (opt->r && opt->l)
+		{
+			put_total(lst, hidd);
+			display_rllst(lst, hidd);
+		}
+		else if (opt->r)
+			display_rlst(lst, hidd);
+		if (opt->l && (!opt->r))
+		{
+			put_total(lst, hidd);
+			display_llst(lst, hidd);
+		}
+		else if (lst && opt->a && (!opt->r))
+			display_lst(lst, hidd);
+		else if (lst && (!opt->a) && (!opt->r))
+			display_lst(lst, hidd);
+	}
+}
+
+void	get_param(char *path, t_opt *opt)
 {
 	DIR 			*dir;
 	struct dirent	*ret;
 	t_lst 			*lst;
 
 	if (!(dir = opendir(path)))
+	{
+		ft_putstr("ls: ");
+		perror(remove_slash(path));
 		exit(1);
+	}
 	if (!(lst = (t_lst *)malloc(sizeof(t_lst))))
 		exit(1);
 	lst = NULL;
 	while ((ret = readdir(dir)))
 		lst = get_info(lst, ret->d_name, ft_strjoin(path, ret->d_name));
-	count_total(lst);
-	padding(lst);
-
 	lst_sort_ascii(lst);
-
-	display_llst(lst);
+	if (opt && opt->l)
+		padding(lst);
+	manage_opt(lst, opt);
 	closedir(dir);
 }
 
-int		main(int ac, char **av)
+/*
+void	sort_args(int ac, char **av)
 {
 	int i;
-	t_opt opt;
+	int j;
+	char *tmp;
 
-	if (ac > 1)
+	j = 0;
+	while (j < ac)
 	{
-		i = 1;
-		if (av[i][0] == '-' && av[i][1])
+		i = 0;
+		while ((i + 1)  < ac)
 		{
-			get_opt(av[i], &opt);
-			i = 2;
-		}
-		while (av[i])
-		{
-			get_param(add_slash(av[i])); // add opt
-			if (av[i + 1])
-				ft_putchar('\n');
+			if (ft_strcmp(*(av[i]), *(av[i + 1])) > 0)
+			{
+				tmp = ft_strdup(*(av[i]));
+				free(*(av[i]));
+				*(av[i]) = ft_strdup(*(av[i + 1]));
+				free(*(av[i + 1]));
+				*(av[i + 1]) = ft_strdup(tmp);
+				free(tmp);
+			}
 			i++;
 		}
+		j++;
 	}
-	else
-		get_param("./");
+}
+*/
+
+int		main(int ac, char **av)
+{
+	int	i;
+	char	*path;
+	t_opt	opt;
+
+	i = 1;
+	path = NULL;
+	init_opt(&opt);
+	// sort_args(int ac, char **av)
+	while (i < ac)
+	{
+		if (av[i][0] == '-')
+			get_opt(av[i], &opt);
+		else
+		{
+			path = av[i];
+			get_param(add_slash(path), &opt);
+			if (av[i + 1])
+				ft_putchar('\n');
+		}
+		i++;
+	}
+	if (path == NULL)
+		get_param("./", &opt);
 	return (0);
 }

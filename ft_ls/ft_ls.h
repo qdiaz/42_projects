@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/02/09 11:51:29 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/02/09 11:51:31 by qdiaz            ###   ########.fr       */
+/*   Created: 2016/02/16 12:55:03 by qdiaz             #+#    #+#             */
+/*   Updated: 2016/02/16 12:55:05 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,17 @@
 # include <stdlib.h> // malloc, free, exit
 # include <stdio.h> // perror, strerror
 
-typedef struct 		s_opt // stock input opt
+typedef struct		s_pad
+{
+	size_t			len_usr;
+	size_t			len_grp;
+	size_t			len_lnk;
+	size_t			len_siz;
+	size_t			len_maj;
+	size_t			len_min;
+}					t_pad;
+
+typedef struct 		s_opt
 {
 	int				l;
 	int				R;
@@ -35,32 +45,45 @@ typedef struct 		s_opt // stock input opt
 	int				t;
 }					t_opt;
 
-typedef struct		s_lst // stock file info
+typedef struct		s_lst
 {
-	char			*name; // name of file
+	char			*name;
 	char			*chem;
 	char			perm[11];
-	char			*user_id; // user name of file
-	char			*group_id; // group name of file
-	char			*date; // date of modif of file
+	char			*user_id;
+	char			*group_id;
+	char			*date;
+	int				date_id;
 	int				blok;
 	char			*link;
 	char			*size;
+	char			*maj;
+	char			*min;
 	struct s_lst 	*next;
 }					t_lst;
 
-void	get_param(char *path);
-int		get_opt(char *str, t_opt *opt);
+char	*add_slash(char *path);
+char	*remove_slash(char *path);
+
+void	ft_putnbr_endl(int n);
+void	ft_putstr_s(char *s);
+void	put_total(t_lst *lst, int hidd);
+
+void	get_param(char *path, t_opt *opt);
 void	padding(t_lst *lst);
 
 char	*format_size(char *s);
+char	*join_maj_min(dev_t device_id);
 
-void	lst_add(t_lst **start, t_lst *new);
+void	display_rllst(t_lst *lst, int hidd);
+void	display_llst(t_lst *lst, int hidd);
+void	display_rlst(t_lst *lst, int hidd);
+void	display_lst(t_lst *lst, int hidd);
+
+int		get_opt(char *str, t_opt *opt);
+void	init_opt(t_opt *opt);
+
 t_lst	*lst_sort_ascii(t_lst *lst);
-
-// basic functions
-
-void	ft_putstr_s(char *s);
-void	ft_putnbr_endl(int n);
+t_lst	*lst_sort_time(t_lst *lst);
 
 #endif

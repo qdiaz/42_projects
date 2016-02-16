@@ -6,7 +6,7 @@
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/26 13:37:15 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/01/28 15:41:13 by qdiaz            ###   ########.fr       */
+/*   Updated: 2016/02/16 12:54:22 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,5 +93,6 @@ char				*ft_strndup(const char *s1, size_t n);
 char				*ft_strcdup(const char *s1, char a);
 size_t				ft_strclen(const char *str, char a);
 int					get_next_line(int const fd, char **line);
+char				*ft_strnjoin(const char *s1, const char *s2, size_t len);
 
 #endif
