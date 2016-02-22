@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/02/16 12:55:03 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/02/16 12:55:05 by qdiaz            ###   ########.fr       */
+/*   Created: 2016/02/22 13:49:24 by qdiaz             #+#    #+#             */
+/*   Updated: 2016/02/22 13:49:27 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct		s_pad
 	size_t			len_siz;
 	size_t			len_maj;
 	size_t			len_min;
+	size_t			len_majmin;
 }					t_pad;
 
 typedef struct 		s_opt
@@ -55,10 +56,12 @@ typedef struct		s_lst
 	char			*date;
 	int				date_id;
 	int				blok;
+	int				is_dir; // bool
 	char			*link;
 	char			*size;
 	char			*maj;
 	char			*min;
+	char			*majmin;
 	struct s_lst 	*next;
 }					t_lst;
 
@@ -69,7 +72,10 @@ void	ft_putnbr_endl(int n);
 void	ft_putstr_s(char *s);
 void	put_total(t_lst *lst, int hidd);
 
+char	**create_tab(char **av, t_opt *opt, int ac, int flag);
+
 void	get_param(char *path, t_opt *opt);
+
 void	padding(t_lst *lst);
 
 char	*format_size(char *s);
@@ -85,5 +91,10 @@ void	init_opt(t_opt *opt);
 
 t_lst	*lst_sort_ascii(t_lst *lst);
 t_lst	*lst_sort_time(t_lst *lst);
+
+t_lst	*manage_av_file(char *path, t_lst *lst, DIR *dir);
+t_lst	*get_info(t_lst *head, char *file, char *path);
+
+char	*format_path(char *path);
 
 #endif

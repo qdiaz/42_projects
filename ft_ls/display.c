@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/02/16 12:54:51 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/02/16 12:54:54 by qdiaz            ###   ########.fr       */
+/*   Created: 2016/02/22 13:49:01 by qdiaz             #+#    #+#             */
+/*   Updated: 2016/02/22 13:49:03 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,13 @@ static void	put_long(t_lst *lst)
 	ft_putstr_s(lst->user_id);
 	ft_putchar(' ');
 	ft_putstr_s(lst->group_id);
-	if (!(ft_strncmp(lst->maj, "0", 1) && ft_strncmp(lst->min, "0", 1)))
-		ft_putstr_s(lst->size);
-	else
+	if (lst->perm[0] != 'c' && lst->perm[0] != 'b') // KO, verifier dans /dev pour stdin, stdout, etc...
 	{
-		ft_putstr_s(lst->maj);
-		ft_putstr_s(lst->min);
+		ft_putchar(' ');
+		ft_putstr_s(lst->size);
 	}
+	else
+		ft_putstr_s(lst->majmin);
 	ft_putstr_s(lst->date);
 	ft_putendl(lst->name);
 }
