@@ -6,7 +6,7 @@
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/24 15:17:32 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/02/24 15:28:00 by qdiaz            ###   ########.fr       */
+/*   Updated: 2016/02/24 16:21:52 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ int        ft_strlen(char *s)
 
 void    rostring(char *str)
 {
-	char    *new;
-	int        first, first_end;
-	int        word;
-	int        i;
+	char	*new;
+	int		first, first_end;
+	int		word;
+	int		i;
 
 	new = malloc(ft_strlen(str));
 
@@ -44,7 +44,7 @@ void    rostring(char *str)
 			first_end = i;
 			break ;
 		}
-		++i;
+		i++;
 	}
 	while (str[i])
 	{

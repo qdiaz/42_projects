@@ -6,7 +6,7 @@
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 13:50:17 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/02/22 13:50:19 by qdiaz            ###   ########.fr       */
+/*   Updated: 2016/03/03 13:34:00 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,15 @@
 static char	*add_unit(int size)
 {
 	if (size >= 1 && size <= 3)
-		return (" B\0");
+		return (" B");
 	else if (size >= 4 && size <= 6)
-		return (" K\0");
+		return (" K");
 	else if (size >= 7 && size <= 9)
-		return (" M\0");
+		return (" M");
 	else if (size >= 10 && size <= 13)
-		return (" G\0");
+		return (" G");
 	else
-		return (" T\0");
+		return (" T");
 }
 
 static char	*add_dot(char *s, size_t size)
@@ -33,13 +33,14 @@ static char	*add_dot(char *s, size_t size)
 
 	toput = size % 3;
 	((toput == 0)) ? toput = 3 : toput;
-	tmp = ft_strnew(size + 1);
+	tmp = ft_strnew(toput + 6);
 	ft_strncpy(tmp, s, toput);
 	ft_strncat(tmp, ".", 1);
 	if (s[toput] && s[toput + 1])
 	{
 		tmp[toput + 1] = s[toput];
 		tmp[toput + 2] = s[toput + 1];
+		tmp[toput + 3] = '\0';
 	}
 	return (tmp);
 }
@@ -51,9 +52,12 @@ char	*format_size(char *s) // pb -l /usr
 	char	*end;
 
 	size = ft_strlen(s);
+	if (size == 1 && ft_atoi(s) == 0)
+		return (ft_strdup("0 B"));
 	formated = ft_strnew(size + 1);
-	end = ft_strnew(2);
-	end = add_unit(size);
+	end = ft_strdup(add_unit(size));
+	//end = ft_strnew(3);
+	//end = add_unit(size);
 	if (size >= 4)
 	{
 		formated = add_dot(s, size);
