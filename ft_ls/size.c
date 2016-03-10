@@ -6,7 +6,7 @@
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 13:50:17 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/03/03 13:34:00 by qdiaz            ###   ########.fr       */
+/*   Updated: 2016/03/03 13:51:51 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ static char	*add_dot(char *s, size_t size)
 	}
 	return (tmp);
 }
+
+// reste des bugs de temps en tems sur la taille
 
 char	*format_size(char *s) // pb -l /usr
 {
