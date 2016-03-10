@@ -6,7 +6,7 @@
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 13:49:01 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/02/22 13:49:03 by qdiaz            ###   ########.fr       */
+/*   Updated: 2016/03/10 16:31:44 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	put_long(t_lst *lst)
 	ft_putstr_s(lst->user_id);
 	ft_putchar(' ');
 	ft_putstr_s(lst->group_id);
-	if (lst->perm[0] != 'c' && lst->perm[0] != 'b') // KO, verifier dans /dev pour stdin, stdout, etc...
+	if (lst->perm[0] != 'c' && lst->perm[0] != 'b')
 	{
 		ft_putchar(' ');
 		ft_putstr_s(lst->size);

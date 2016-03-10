@@ -6,11 +6,25 @@
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 13:50:57 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/02/22 13:51:00 by qdiaz            ###   ########.fr       */
+/*   Updated: 2016/03/10 13:13:38 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
+
+char	*add_slash(char *path)
+{
+	if (path[strlen(path) - 1] != '/')
+		path = ft_strjoin(path, "/");
+	return (path);
+}
+
+char	*remove_slash(char *path)
+{
+	if (path[strlen(path) - 1] == '/')
+		path[ft_strlen(path) - 1] = '\0';
+	return (path);
+}
 
 void	ft_putstr_s(char *s)
 {

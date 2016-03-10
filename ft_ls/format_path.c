@@ -6,12 +6,18 @@
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 13:49:12 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/02/22 13:49:14 by qdiaz            ###   ########.fr       */
+/*   Updated: 2016/03/10 14:17:36 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
-#include <stdio.h> // test
+
+static void	put_error(char *path)
+{
+	ft_putstr("ft_ls: ");
+	perror(remove_slash(path));
+	exit(1);
+}
 
 static char *get_file_name(char *path)
 {
@@ -35,62 +41,48 @@ char *format_path(char *path)
 	int	i;
 	char	*tmp;
 
-	if (path)
+	i = ft_strlen(path) - 1;
+	if (path[i] == '/')
+		return (NULL);
+	else
 	{
-		i = ft_strlen(path) - 1;
-		if (path[i] == '/')
-			return (NULL);
+		tmp = ft_strdup(path);
+		while (tmp[i] != '/' && i > 0)
+			i--;
+		if (i == 0)
+		{
+			tmp = ft_strdup("./");
+			return (tmp);
+		}
 		else
 		{
-			tmp = ft_strdup(path);
-			while (tmp[i] != '/' && i > 0)
-				i--;
-			if (i == 0)
-			{
-				tmp = ft_strdup("./");
-				//free(path);
-				return (tmp);
-			}
-			else
-			{
-				tmp = add_slash(ft_strndup(path, i));
-				//free(path);
-				return (tmp);
-			}
+			tmp = add_slash(ft_strndup(path, i));
+			return (tmp);
 		}
 	}
-	else
-		return (NULL);
+	return (NULL);
 }
 
 t_lst	*manage_av_file(char *path, t_lst *lst, DIR *dir)
 {
-	char *formated;
-	char *file_name;
-	struct dirent *ret;
+	char			*formated;
+	char			*file_name;
+	struct dirent	*ret;
 
 	formated = format_path(path);
 	if (formated == NULL)
-		return (NULL); // exit ok
-	//else
-	//	formated = ft_strdup(format_path(path));
+		return (NULL);
 	if (!(dir = opendir(formated)))
-	{
-		ft_putstr("ft_ls: ");
-		perror(remove_slash(path));
-		exit(1);
-	}
+		put_error(path);
 	else
 	{
 		file_name = get_file_name(path);
 		while ((ret = readdir(dir)))
-		{
 			if ((ft_strcmp(ret->d_name, file_name) == 0)) // si match
 			{
 				lst = get_info(lst, ret->d_name, path);
 				break;
 			}
-		}
 		if (!lst)
 			return (NULL);
 		closedir(dir);

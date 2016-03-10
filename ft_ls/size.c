@@ -6,7 +6,7 @@
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 13:50:17 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/03/03 13:51:51 by qdiaz            ###   ########.fr       */
+/*   Updated: 2016/03/10 17:00:31 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static char	*add_unit(int size)
 		return (" K");
 	else if (size >= 7 && size <= 9)
 		return (" M");
-	else if (size >= 10 && size <= 13)
+	else if (size >= 10 && size <= 12)
 		return (" G");
 	else
 		return (" T");
@@ -35,8 +35,8 @@ static char	*add_dot(char *s, size_t size)
 	((toput == 0)) ? toput = 3 : toput;
 	tmp = ft_strnew(toput + 6);
 	ft_strncpy(tmp, s, toput);
-	ft_strncat(tmp, ".", 1);
-	if (s[toput] && s[toput + 1])
+	ft_strcat(tmp, ".");
+	if (s[toput] && s[toput + 1] && s[toput + 2])
 	{
 		tmp[toput + 1] = s[toput];
 		tmp[toput + 2] = s[toput + 1];
@@ -45,9 +45,7 @@ static char	*add_dot(char *s, size_t size)
 	return (tmp);
 }
 
-// reste des bugs de temps en tems sur la taille
-
-char	*format_size(char *s) // pb -l /usr
+char	*format_size(char *s)
 {
 	size_t	size;
 	char	*formated;
@@ -56,19 +54,22 @@ char	*format_size(char *s) // pb -l /usr
 	size = ft_strlen(s);
 	if (size == 1 && ft_atoi(s) == 0)
 		return (ft_strdup("0 B"));
-	formated = ft_strnew(size + 1);
+	formated = ft_strnew(size);
 	end = ft_strdup(add_unit(size));
-	//end = ft_strnew(3);
-	//end = add_unit(size);
 	if (size >= 4)
 	{
 		formated = add_dot(s, size);
+		free(s);
+		s = NULL;
 		ft_strcat(formated, end);
+		free(end);
+		end = NULL;
 		return (formated);
 	}
-	ft_strcpy(formated, s);
-	ft_strcat(formated, end);
-	ft_strjoin(formated, "\0");
+	else
+		return (ft_strjoin(s, end));
+	ft_strjoin(formated, s);
+	ft_strjoin(formated, end);
 	return (formated);
 }
 
@@ -87,16 +88,43 @@ void	put_total(t_lst *lst, int hidd)
 	}
 	else
 	{
-		// if (lst->next) -----> enlever cette condition dans manage opt avant puttotal
-		// {
-		while (lst) // && lst->perm[0] != 'l' ----> pour les linked file dans /dev par exemple, stdin, stdout, qui ne sont pas cense afficher maj et minor
+		while (lst)
 		{
 			if (ft_strncmp(lst->name, ".", 1) != 0)
 				res += lst->blok;
 			lst = lst->next;
 		}
-		// }
 	}
 	ft_putstr("total ");
 	ft_putnbr_endl(res);
+}
+
+int		count_dir(t_lst **lst, t_opt *opt)
+{
+	int		i;
+	t_lst	*tmp;
+
+	i = 0;
+	tmp = *lst;
+	if (opt->a == 1)
+	{
+	while (tmp)
+	{
+		if (tmp->is_dir)
+			i++;
+		tmp = tmp->next;
+	}
+	return (i);
+	}
+	else if (opt->a == 0)
+	{
+		while (tmp)
+		{
+			if (tmp->is_dir &&ft_strncmp(&tmp->name[0], ".", 1))
+				i++;
+			tmp = tmp->next;
+		}
+		return (i);
+	}
+	return (0);
 }

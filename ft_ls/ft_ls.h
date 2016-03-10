@@ -6,7 +6,7 @@
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 13:49:24 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/02/22 13:49:27 by qdiaz            ###   ########.fr       */
+/*   Updated: 2016/03/10 16:56:50 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,18 +65,21 @@ typedef struct		s_lst
 	struct s_lst 	*next;
 }					t_lst;
 
-char	*add_slash(char *path);
-char	*remove_slash(char *path);
+int		count_dir(t_lst **t_lst, t_opt *opt);
+void	fill_info(struct stat st, t_lst *new, char *file);
+
+char	*add_slash(char *path); //--> ok
+char	*remove_slash(char *path); //--> ok
 
 void	ft_putnbr_endl(int n);
 void	ft_putstr_s(char *s);
-void	put_total(t_lst *lst, int hidd);
+void	put_total(t_lst *lst, int hidd); //--> ok
 
-char	**create_tab(char **av, t_opt *opt, int ac, int flag);
+char	**create_tab(char **av, t_opt *opt, int ac, int flag); //--> ok
 
-void	get_param(char *path, t_opt *opt);
+void	get_param(char *path, t_opt *opt); //--> ok
 
-void	padding(t_lst *lst);
+void	padding(t_lst *lst); //--> a modifier
 
 char	*format_size(char *s);
 char	*join_maj_min(dev_t device_id);
@@ -95,6 +98,6 @@ t_lst	*lst_sort_time(t_lst *lst);
 t_lst	*manage_av_file(char *path, t_lst *lst, DIR *dir);
 t_lst	*get_info(t_lst *head, char *file, char *path);
 
-char	*format_path(char *path);
+char	*format_path(char *path); //--> a modifier
 
 #endif

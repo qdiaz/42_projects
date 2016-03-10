@@ -6,7 +6,7 @@
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 13:50:04 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/02/22 13:50:06 by qdiaz            ###   ########.fr       */
+/*   Updated: 2016/03/10 11:58:26 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,18 @@ static void	init_pad(t_pad *pad)
 	pad->len_min = 0;
 	pad->len_majmin = 0;
 }
-
+/*
+   static void		init_pad(t_pad *pad, t_lst **lst)
+   {
+   pad->len_usr = ft_strlen((*lst)->user_id);
+   pad->len_grp = ft_strlen((*lst)->group_id);
+   pad->len_lnk = ft_strlen((*lst)->link);
+   pad->len_siz = ft_strlen((*lst)->size);
+   pad->len_maj = ft_strlen((*lst)->maj);
+   pad->len_min = ft_strlen((*lst)->min);
+   pad->len_majmin = 0;
+   }
+   */
 static char	*put_s_before(char *str, int max)
 {
 	int		i;

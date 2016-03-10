@@ -6,117 +6,11 @@
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 13:49:42 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/02/22 13:49:44 by qdiaz            ###   ########.fr       */
+/*   Updated: 2016/03/10 17:01:38 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
-#include <stdio.h> // test
-
-char	*add_slash(char *path)
-{
-	if (path[ft_strlen(path) - 1] != '/')
-		path = ft_strjoin(path, "/");
-	return (path);
-}
-
-char	*remove_slash(char *path)
-{
-	if (path[ft_strlen(path) - 1] == '/')
-		path[ft_strlen(path) - 1] = '\0';
-	return (path);
-}
-
-static char	get_file_type(struct stat *st)
-{
-	char c;
-
-	if (S_ISDIR(st->st_mode)) // directory
-		c = 'd';
-	else if (S_ISLNK(st->st_mode)) // sym link
-		c = 'l';
-	else if (S_ISCHR(st->st_mode)) // character special
-		c = 'c';
-	else if (S_ISBLK(st->st_mode)) // block special
-		c = 'b';
-	else if (S_ISFIFO(st->st_mode)) // named pipe (fifo)
-		c = 'p';
-	else if (S_ISSOCK(st->st_mode)) // socket
-		c = 's';
-	else
-		c = '-';
-	return (c);
-}
-
-static void get_perm(struct stat *st, t_lst *lst)
-{
-	ft_bzero(lst->perm, 11);
-	lst->perm[0] = get_file_type(st);
-	lst->perm[1] = (st->st_mode & S_IRUSR) ? 'r' : '-';
-	lst->perm[2] = (st->st_mode & S_IWUSR) ? 'w' : '-';
-	lst->perm[3] = (st->st_mode & S_IXUSR) ? 'x' : '-';
-	lst->perm[4] = (st->st_mode & S_IRGRP) ? 'r' : '-';
-	lst->perm[5] = (st->st_mode & S_IWGRP) ? 'w' : '-';
-	lst->perm[6] = (st->st_mode & S_IXGRP) ? 'x' : '-';
-	lst->perm[7] = (st->st_mode & S_IROTH) ? 'r' : '-';
-	lst->perm[8] = (st->st_mode & S_IWOTH) ? 'w' : '-';
-	lst->perm[9] = (st->st_mode & S_IXOTH) ? 'x' : '-';
-}
-
-static void	fill_info(struct stat st, t_lst *new, char *file)
-{
-	new->name = ft_strdup(file);
-	new->date = ft_strsub(ctime(&st.st_mtime), 4, 12);
-	new->date_id = (int)st.st_mtime;
-	new->link = ft_itoa(st.st_nlink);
-	new->size = format_size(ft_itoa(st.st_size));
-	new->blok = st.st_blocks;
-	new->maj = ft_strjoin(ft_itoa(major(st.st_rdev)), ",");
-	new->min = ft_itoa(minor(st.st_rdev));
-	get_perm(&st, new);
-	new->is_dir = (new->perm[0] == 'd' && ft_strcmp(new->name, ".") && ft_strcmp(new->name, ".."));
-	new->next = NULL;
-}
-
-static int	count_dir(t_lst **lst)
-{
-	int i;
-	t_lst *tmp;
-
-	i = 0;
-	tmp = *lst;
-	while (tmp)
-	{
-		if (tmp->is_dir)
-			i++;
-		tmp = tmp->next;
-	}
-	return (i);
-}
-
-t_lst	*get_info(t_lst *head, char *file, char *path)
-{
-	struct stat		st;
-	t_lst			*new;
-	t_lst			*ptr;
-
-	new = (t_lst *)malloc(sizeof(t_lst));
-	ptr = head;
-	if (lstat(path, &st) <= 0)
-	{
-		fill_info(st, new, file);
-		if (getpwuid(st.st_uid))
-			new->user_id = ft_strdup(getpwuid(st.st_uid)->pw_name);
-		if (getgrgid(st.st_gid))
-			new->group_id = ft_strdup(getgrgid(st.st_gid)->gr_name);
-	}
-	if (head == NULL)
-		return (new);
-	while (ptr->next)
-		ptr = ptr->next;
-	ptr->next = new;
-	return (head);
-}
 
 static void recursive(char *path, t_lst *lst, t_opt *opt, int nb_dir)
 {

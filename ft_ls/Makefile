@@ -6,7 +6,7 @@
 #    By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/02/22 13:54:02 by qdiaz             #+#    #+#              #
-#    Updated: 2016/02/22 14:03:21 by qdiaz            ###   ########.fr        #
+#    Updated: 2016/03/10 16:55:58 by qdiaz            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,8 @@ SRCS = 	display.c\
 		sort_lst.c\
 		sort_tab.c\
 		tool.c\
+		get_info.c\
+		data.c\
 		main.c
 
 OBJS = $(SRCS:.c=.o)
