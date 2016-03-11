@@ -6,7 +6,7 @@
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 13:50:57 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/03/10 13:13:38 by qdiaz            ###   ########.fr       */
+/*   Updated: 2016/03/11 16:09:41 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,20 @@ void	ft_putnbr_endl(int n)
 		ft_putchar(n % 10 + '0');
 	}
 	write(1, "\n", 1);
+}
+
+int		is_what(char *tab)
+{
+	DIR			*dir;
+	struct stat	st;
+
+	if ((dir = opendir(tab)))
+	{
+		closedir(dir);
+		return (1);
+	}
+	else if (!stat(tab, &st))
+		return (0);
+	else
+		return (-1);
 }

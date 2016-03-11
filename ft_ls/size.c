@@ -6,7 +6,7 @@
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 13:50:17 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/03/10 17:00:31 by qdiaz            ###   ########.fr       */
+/*   Updated: 2016/03/11 17:57:07 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,30 +99,28 @@ void	put_total(t_lst *lst, int hidd)
 	ft_putnbr_endl(res);
 }
 
-int		count_dir(t_lst **lst, t_opt *opt)
+int		count_dir(t_lst *lst, t_opt *opt)
 {
 	int		i;
-	t_lst	*tmp;
 
-	i = 0;
-	tmp = *lst;
-	if (opt->a == 1)
+	i = 1;
+	if (opt->a)
 	{
-	while (tmp)
+	while (lst)
 	{
-		if (tmp->is_dir)
+		if (lst->is_dir)
 			i++;
-		tmp = tmp->next;
+		lst = lst->next;
 	}
 	return (i);
 	}
-	else if (opt->a == 0)
+	else if (!opt->a)
 	{
-		while (tmp)
+		while (lst)
 		{
-			if (tmp->is_dir &&ft_strncmp(&tmp->name[0], ".", 1))
+			if (lst->is_dir &&ft_strncmp(&lst->name[0], ".", 1))
 				i++;
-			tmp = tmp->next;
+			lst = lst->next;
 		}
 		return (i);
 	}

@@ -6,7 +6,7 @@
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 13:49:52 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/02/22 13:49:54 by qdiaz            ###   ########.fr       */
+/*   Updated: 2016/03/11 15:51:14 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	init_opt(t_opt *opt)
 {
 	opt->l = 0;
-	opt->R = 0;
+	opt->big_r = 0;
 	opt->a = 0;
 	opt->r = 0;
 	opt->t = 0;
@@ -44,7 +44,7 @@ int			get_opt(char *opts, t_opt *opt)
 		if (opts[i] == 'l')
 			opt->l = 1;
 		if (opts[i] == 'R')
-			opt->R = 1;
+			opt->big_r = 1;
 		if (opts[i] == 'a')
 			opt->a = 1;
 		if (opts[i] == 'r')

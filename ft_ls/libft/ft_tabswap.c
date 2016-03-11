@@ -1,32 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_info.c                                         :+:      :+:    :+:   */
+/*   ft_tabswap.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/03/10 16:46:39 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/03/11 15:45:09 by qdiaz            ###   ########.fr       */
+/*   Created: 2016/03/11 17:58:45 by qdiaz             #+#    #+#             */
+/*   Updated: 2016/03/11 18:02:12 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ls.h"
+#include "libft.h"
 
-t_lst	*get_info(t_lst *head, char *file, char *path)
+void	ft_tabswap(char **s1, char **s2)
 {
-	struct stat		st;
-	t_lst			*new;
-	t_lst			*ptr;
-
-	if (!(new = (t_lst *)malloc(sizeof(t_lst))))
-			return (NULL);
-	ptr = head;
-	if (lstat(path, &st) <= 0)
-		fill_info(st, new, file, path);
-	if (head == NULL)
-		return (new);
-	while (ptr->next)
-		ptr = ptr->next;
-	ptr->next = new;
-	return (head);
+	char *tmp;
+	
+	tmp = *s1;
+	*s1 = *s2;
+	*s2 = tmp;
 }

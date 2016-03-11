@@ -6,176 +6,78 @@
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 13:49:42 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/03/10 17:01:38 by qdiaz            ###   ########.fr       */
+/*   Updated: 2016/03/11 15:49:19 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-static void recursive(char *path, t_lst *lst, t_opt *opt, int nb_dir)
+static void		check_void_av(int ac, char **av, int flag)
 {
-	char			**dirs;
-	int				i;
-	int				j;
+	int i;
 
 	i = 0;
-	if (!(dirs = (char **)malloc(sizeof(char *) * nb_dir + 1)))
-		exit(1);
-	while (lst)
+	while (i < ac - flag)
 	{
-		if (lst->is_dir == 1)
+		if (!ft_strcmp(av[i], ""))
 		{
-			if (opt->a == 0 && lst->name[0] != '.')
-			{
-				dirs[i] = ft_strdup(lst->name);
-				i++;
-			}
-			else if (opt->a != 0)
-			{
-				dirs[i] = ft_strdup(lst->name);
-				i++;	
-			}
+			ft_putendl_fd("ft_ls: fts_open: No such file or directory", 2);
+			exit(0);
 		}
-		lst = lst->next;
-	}
-	dirs[i] = NULL;
-	// trier tableau par ordre en fn des options
-	if (opt->r == 0)
-	{
-		i = -1;
-		while (++i < nb_dir) // si pas opt->r
-		{
-			if (dirs[i])
-			{
-				ft_putchar('\n');
-				ft_putstr(ft_strjoin(path, dirs[i]));
-				ft_putstr(":\n");
-				get_param(ft_strjoin(path, add_slash(dirs[i])), opt);
-			}
-		}
-	}
-	else if (opt->r == 1)
-	{
-		j = nb_dir;
-		while (j > -1)
-		{
-			if (dirs[j])
-			{
-				ft_putchar('\n');
-				ft_putstr(ft_strjoin(path, dirs[j]));
-				ft_putstr(":\n");
-				get_param(ft_strjoin(path, add_slash(dirs[j])), opt);
-			}
-			j--;
-		}
+		i++;
 	}
 }
 
-void	manage_opt(t_lst *lst, t_opt *opt, char *path)
+static void		put_head(char *path, int ac, int flag, int put_space)
 {
-	int hidd;
-
-	hidd = 0;
-	lst = lst_sort_ascii(lst);
-	if (!opt || (opt->l == 0 && opt->R == 0 && opt->a == 0 && opt->r == 0 && opt->t == 0))
-		display_lst(lst, 0);
-	else
+	if (ac - flag > 1 && is_what(path) == 1)
 	{
-		if (opt->a)
-			hidd = 1;
-		if (opt->t)
-			lst = lst_sort_time(lst);
-		if (opt->r && opt->l)
-		{
-			if (lst->next != NULL)
-				put_total(lst, hidd);
-			display_rllst(lst, hidd);
-		}
-		else if (opt->r)
-			display_rlst(lst, hidd);
-		if (opt->l && (!opt->r))
-		{
-			if (lst->next != NULL)
-				put_total(lst, hidd);
-			display_llst(lst, hidd);
-		}
-		else if (lst && opt->a && (!opt->r))
-			display_lst(lst, hidd);
-		else if (lst && (!opt->a) && (!opt->r))
-			display_lst(lst, hidd);
-		if (lst && opt->R)
-			recursive(path, lst, opt, count_dir(&lst));
+		if (put_space)
+			ft_putchar('\n');
+		ft_putstr(path);
+		ft_putendl(":");
 	}
 }
 
-void	get_param(char *path, t_opt *opt)
+static int		check_opt(char **av, t_opt *opt, int flag)
 {
-	DIR 			*dir;
-	struct dirent	*ret;
-	t_lst 			*lst;
-	int				is_file;
+	int i;
 
-	is_file = 0;
-	if (!(lst = (t_lst *)malloc(sizeof(t_lst))))
-		exit(1);
-	lst = NULL;
-	if (!(dir = opendir(path)))
+	i = 1;
+	while (av[i] && av[i][0] == '-' && av[i][1] != '\0')
 	{
-		lst = manage_av_file(path, lst, dir);
-		if (lst == NULL)
-		{
-			ft_putstr("ft_ls: ");
-			perror(path);
-			return ;
-		}
-		is_file = 1;
+		get_opt(av[i], opt);
+		flag++;
+		i++;
 	}
-	else if (is_file == 0)
-	{
-		path = add_slash(path);
-		while ((ret = readdir(dir)))
-			lst = get_info(lst, ret->d_name, ft_strjoin(path, ret->d_name));
-		closedir(dir);
-		//ft_putchar('\n');
-	}
-	if (opt && opt->l)
-		padding(lst);
-	manage_opt(lst, opt, path);
+	return (flag);
 }
 
-int		main(int ac, char **av)
+int				main(int ac, char **av)
 {
 	int		i;
 	int		flag;
 	char	*path;
 	t_opt	opt;
 
-	i = 1;
 	flag = 1;
 	path = NULL;
 	init_opt(&opt);
 	if (ac > 1)
 	{
-		while (av[i] && av[i][0] == '-')
-		{
-			get_opt(av[i], &opt);
-			flag++;
-			i++;
-		}
-		if (ac > flag)
+		flag = check_opt(av, &opt, flag);
+		if ((i = -1) && ac > flag)
 			av = create_tab(av, &opt, ac, flag);
-		i = 0;
-		if (ac > 1)
+		check_void_av(ac, av, flag);
+		while (++i < ac - flag && (path = av[i]))
 		{
-			while (i < ac - flag)
-			{
-				path = av[i];
-				get_param(path, &opt);
-				i++;
-			}
+			put_head(path, ac, flag, i);
+			get_param(path, &opt);
 		}
 	}
-	if (path == NULL)
+	if (!path)
 		get_param("./", &opt);
+	else
+		ft_freetab(av);
 	return (0);
 }

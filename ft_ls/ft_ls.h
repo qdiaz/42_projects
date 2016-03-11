@@ -6,80 +6,87 @@
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 13:49:24 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/03/10 16:56:50 by qdiaz            ###   ########.fr       */
+/*   Updated: 2016/03/11 17:02:43 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_LS_H
 # define FT_LS_H
 
+# define N_TIME st_mtimespec.tv_nsec
 # include "./libft/libft.h"
+# include <unistd.h>
+# include <dirent.h>
+# include <sys/stat.h>
+# include <pwd.h>
+# include <uuid/uuid.h>
+# include <grp.h>
+# include <sys/xattr.h>
+# include <time.h>
+# include <stdlib.h>
+# include <stdio.h>
 
-# include <unistd.h> // write, readlink
-# include <dirent.h> // opendir, readdir, closedir
-# include <sys/stat.h> // stat, lstat
-# include <pwd.h> // getpwuid
-# include <uuid/uuid.h> // getpwuid, getgrgid
-# include <grp.h> // getgrgid
-# include <sys/xattr.h> // listxattr, getxattr
-# include <time.h> // time, ctime
-# include <stdlib.h> // malloc, free, exit
-# include <stdio.h> // perror, strerror
-
-typedef struct		s_pad
+typedef struct	s_pad
 {
-	size_t			len_usr;
-	size_t			len_grp;
-	size_t			len_lnk;
-	size_t			len_siz;
-	size_t			len_maj;
-	size_t			len_min;
-	size_t			len_majmin;
-}					t_pad;
+	size_t		len_usr;
+	size_t		len_grp;
+	size_t		len_lnk;
+	size_t		len_siz;
+	size_t		len_maj;
+	size_t		len_min;
+	size_t		len_majmin;
+}				t_pad;
 
-typedef struct 		s_opt
+typedef struct	s_opt
 {
-	int				l;
-	int				R;
-	int				a;
-	int				r;
-	int				t;
-}					t_opt;
+	int			l;
+	int			big_r;
+	int			a;
+	int			r;
+	int			t;
+}				t_opt;
 
 typedef struct		s_lst
 {
 	char			*name;
-	char			*chem;
 	char			perm[11];
 	char			*user_id;
 	char			*group_id;
 	char			*date;
 	int				date_id;
+	int				ntime;
 	int				blok;
-	int				is_dir; // bool
+	int				is_dir;
 	char			*link;
 	char			*size;
 	char			*maj;
 	char			*min;
 	char			*majmin;
-	struct s_lst 	*next;
+	char			*path;
+	struct s_lst	*next;
 }					t_lst;
 
-int		count_dir(t_lst **t_lst, t_opt *opt);
-void	fill_info(struct stat st, t_lst *new, char *file);
+void	put_link(char *path);
+void	free_lst(t_lst **lst);
 
-char	*add_slash(char *path); //--> ok
-char	*remove_slash(char *path); //--> ok
+int		is_what(char *tab);
+int		count_dir(t_lst *lst, t_opt *opt);
+void	fill_info(struct stat st, t_lst *new, char *file, char *path);
+
+char	*add_slash(char *path);
+char	*remove_slash(char *path);
 
 void	ft_putnbr_endl(int n);
 void	ft_putstr_s(char *s);
-void	put_total(t_lst *lst, int hidd); //--> ok
+void	put_total(t_lst *lst, int hidd);
 
-char	**create_tab(char **av, t_opt *opt, int ac, int flag); //--> ok
+char	**create_tab(char **av, t_opt *opt, int ac, int flag);
+char	**reverse_tab(char **tab);
+char	**sort_tab_time(char **tab, int len);
 
-void	get_param(char *path, t_opt *opt); //--> ok
+void	get_param(char *path, t_opt *opt);
 
-void	padding(t_lst *lst); //--> a modifier
+void	padding(t_lst **lst, t_pad *pad);
 
 char	*format_size(char *s);
 char	*join_maj_min(dev_t device_id);
@@ -98,6 +105,10 @@ t_lst	*lst_sort_time(t_lst *lst);
 t_lst	*manage_av_file(char *path, t_lst *lst, DIR *dir);
 t_lst	*get_info(t_lst *head, char *file, char *path);
 
-char	*format_path(char *path); //--> a modifier
+void	recursive(char *path, t_lst *lst, t_opt *opt);
+void	manage_opt(t_lst *lst, t_opt *opt, char *path);
+
+char	*get_path(char *path);
+char	*get_pathname(t_lst *lst, char *path);
 
 #endif

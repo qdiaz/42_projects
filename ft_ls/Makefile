@@ -3,45 +3,40 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+         #
+#    By: adu-pelo <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2016/02/22 13:54:02 by qdiaz             #+#    #+#              #
-#    Updated: 2016/03/10 16:55:58 by qdiaz            ###   ########.fr        #
+#    Created: 2016/03/08 16:51:41 by adu-pelo          #+#    #+#              #
+#    Updated: 2016/03/11 16:50:57 by qdiaz            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-.PHONY: all clean fclean re
+NAME = ft_ls
 
-NAME = ./ft_ls
+SRC = data.c display.c format_path.c free.c get_info.c get_param.c main.c \
+	  manage_opt.c option.c padding.c recursive.c size.c sort_lst.c sort_tab.c \
+	  sort_tab_r.c tool.c tool2.c
 
-SRCS = 	display.c\
-		format_path.c\
-		option.c\
-		padding.c\
-		size.c\
-		sort_lst.c\
-		sort_tab.c\
-		tool.c\
-		get_info.c\
-		data.c\
-		main.c
+OBJ = $(SRC:.c=.o)
+LIB = ./libft/libft.a
+FLAGS = -Wall -Wextra -Werror
 
-OBJS = $(SRCS:.c=.o)
+$(NAME): $(OBJ)
+	make -C ./libft
+	gcc $(FLAGS) $(OBJ) $(LIB) -o $(NAME)
 
 all: $(NAME)
 
-$(NAME): $(OBJS)
-	@make -C libft/
-	@gcc $(OBJS) -o $(NAME) -L libft/ -lft
-
 %.o: %.c
-	gcc -Wall -Werror -Wextra -c $^
+	gcc $(FLAGS) -o $@ -c $<
 
 clean:
-	@make -C libft/ clean
-	@rm -rf $(OBJS)
+	rm -f $(OBJ)
+	make -C libft/ clean
 
 fclean: clean
-	@rm -rf $(NAME) $(OBJS)
+	rm -rf $(NAME)
+	make fclean -C libft
 
 re: fclean $(NAME)
+
+.PHONY : all clean fclean re

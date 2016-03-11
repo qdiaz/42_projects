@@ -6,7 +6,7 @@
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 13:49:12 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/03/10 14:17:36 by qdiaz            ###   ########.fr       */
+/*   Updated: 2016/03/11 17:02:56 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	put_error(char *path)
 	exit(1);
 }
 
-static char *get_file_name(char *path)
+static char *get_name_file(char *path)
 {
 	int end;
 	int start;
@@ -76,7 +76,7 @@ t_lst	*manage_av_file(char *path, t_lst *lst, DIR *dir)
 		put_error(path);
 	else
 	{
-		file_name = get_file_name(path);
+		file_name = get_name_file(path);
 		while ((ret = readdir(dir)))
 			if ((ft_strcmp(ret->d_name, file_name) == 0)) // si match
 			{

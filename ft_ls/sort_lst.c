@@ -6,7 +6,7 @@
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 13:50:31 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/02/22 13:50:33 by qdiaz            ###   ########.fr       */
+/*   Updated: 2016/03/11 16:01:45 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,22 @@ t_lst	*lst_sort_time(t_lst *lst)
 		return (NULL);
 	if (lst->next != NULL && (lst->date_id < lst->next->date_id))
 		lst = lst_swap(lst, lst->next);
+	else if (lst->next && lst->date_id < lst->next->date_id)
+		if (lst->next && (lst->ntime == lst->next->ntime))
+			lst = lst_swap(lst, lst->next);
 	lst->next = lst_sort_time(lst->next);
 	if (lst->next != NULL && (lst->date_id < lst->next->date_id))
 	{
 		lst = lst_swap(lst, lst->next);
 		lst->next = lst_sort_time(lst->next);
+	}
+	else if (lst->next && lst->date_id == lst->next->date_id)
+	{
+		if (lst->next && (lst->date_id == lst->next->ntime))
+		{
+			lst = lst_swap(lst, lst->next);
+			lst->next = lst_sort_time(lst->next);
+		}
 	}
 	return (lst);
 }

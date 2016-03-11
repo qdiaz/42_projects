@@ -6,7 +6,7 @@
 #    By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/26 13:00:32 by qdiaz             #+#    #+#              #
-#    Updated: 2016/02/16 12:53:50 by qdiaz            ###   ########.fr        #
+#    Updated: 2016/03/11 18:02:10 by qdiaz            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -84,7 +84,10 @@ SRCS = ft_atoi.c\
 	ft_strndup.c\
 	ft_strclen.c\
 	get_next_line.c\
-	ft_strnjoin.c
+	ft_strnjoin.c\
+	ft_tablen.c\
+	ft_tabswap.c\
+	ft_freetab.c
 
 OBJS = $(SRCS:.c=.o)
 

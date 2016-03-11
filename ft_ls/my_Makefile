@@ -1,0 +1,53 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2016/02/22 13:54:02 by qdiaz             #+#    #+#              #
+#    Updated: 2016/03/11 16:50:38 by qdiaz            ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+.PHONY: all clean fclean re
+
+NAME = ./ft_ls
+
+SRCS = 	data.c\
+		display.c\
+		format_path.c\
+		free.c\
+		get_info.c\
+		get_param.c\
+		main.c\
+		manage_opt.c\
+		option.c\
+		padding.c\
+		recursive.c
+		size.c\
+		sort_lst.c\
+		sort_tab.c\
+		sort_tab_r.c\
+		tool.c\
+		tool2.c
+
+OBJS = $(SRCS:.c=.o)
+
+all: $(NAME)
+
+$(NAME): $(OBJS)
+	@make -C libft/
+	@gcc $(OBJS) -o $(NAME) -L libft/ -lft
+
+%.o: %.c
+	gcc -Wall -Werror -Wextra -c $^
+
+clean:
+	@make -C libft/ clean
+	@rm -rf $(OBJS)
+
+fclean: clean
+	@rm -rf $(NAME) $(OBJS)
+
+re: fclean $(NAME)

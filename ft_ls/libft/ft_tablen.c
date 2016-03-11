@@ -1,32 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_info.c                                         :+:      :+:    :+:   */
+/*   ft_tablen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/03/10 16:46:39 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/03/11 15:45:09 by qdiaz            ###   ########.fr       */
+/*   Created: 2016/03/11 17:42:09 by qdiaz             #+#    #+#             */
+/*   Updated: 2016/03/11 17:45:17 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ls.h"
+#include "libft.h"
 
-t_lst	*get_info(t_lst *head, char *file, char *path)
+int		ft_tablen(char **tab)
 {
-	struct stat		st;
-	t_lst			*new;
-	t_lst			*ptr;
+	int len;
 
-	if (!(new = (t_lst *)malloc(sizeof(t_lst))))
-			return (NULL);
-	ptr = head;
-	if (lstat(path, &st) <= 0)
-		fill_info(st, new, file, path);
-	if (head == NULL)
-		return (new);
-	while (ptr->next)
-		ptr = ptr->next;
-	ptr->next = new;
-	return (head);
+	len = 0;
+	if (tab && *tab)
+	{
+		while (tab[len])
+			len++;
+		return (len);
+	}
+	return (0);
 }
