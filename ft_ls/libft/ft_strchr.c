@@ -6,7 +6,7 @@
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/26 12:29:35 by qdiaz             #+#    #+#             */
-/*   Updated: 2015/11/30 14:39:28 by qdiaz            ###   ########.fr       */
+/*   Updated: 2016/03/12 17:55:47 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,5 @@
 
 char	*ft_strchr(const char *s, int c)
 {
-	while (*s && *s != (char)c)
-		s++;
-	if (*s != (char)c)
-		return (NULL);
-	else
-		return ((char *)s);
+	return (ft_memchr(s, c, ft_strlen(s) + 1));
 }

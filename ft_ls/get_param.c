@@ -6,13 +6,13 @@
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 16:45:01 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/03/11 16:47:19 by qdiaz            ###   ########.fr       */
+/*   Updated: 2016/03/12 15:28:19 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-static int	error(char *path)
+static int		error(char *path)
 {
 	ft_putstr_fd("ft_ls: ", 2);
 	path = get_path(path);
@@ -20,7 +20,7 @@ static int	error(char *path)
 	return (1);
 }
 
-static int	error_r(char *path)
+static int		error_r(char *path)
 {
 	ft_putstr_fd("ft_ls: ", 2);
 	path = get_path(path);
@@ -29,7 +29,7 @@ static int	error_r(char *path)
 	return (1);
 }
 
-static void	do_get_info(DIR *dir, t_lst **lst, char *path)
+static void		do_get_info(DIR *dir, t_lst **lst, char *path)
 {
 	struct dirent *ret;
 
@@ -41,7 +41,7 @@ static void	do_get_info(DIR *dir, t_lst **lst, char *path)
 	closedir(dir);
 }
 
-static void	suite(t_lst *lst, char *path, t_pad *pad, t_opt *opt)
+static void		suite(t_lst *lst, char *path, t_pad *pad, t_opt *opt)
 {
 	if (opt && opt->l)
 		padding(&lst, pad);
@@ -52,9 +52,9 @@ static void	suite(t_lst *lst, char *path, t_pad *pad, t_opt *opt)
 		free_lst(&lst);
 }
 
-void	get_param(char *path, t_opt *opt)
+void			get_param(char *path, t_opt *opt)
 {
-	DIR*	dir;
+	DIR		*dir;
 	t_lst	*lst;
 	t_pad	*pad;
 	int		is_file;

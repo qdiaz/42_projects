@@ -6,7 +6,7 @@
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 16:46:39 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/03/11 15:45:09 by qdiaz            ###   ########.fr       */
+/*   Updated: 2016/03/12 15:22:38 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_lst	*get_info(t_lst *head, char *file, char *path)
 	t_lst			*ptr;
 
 	if (!(new = (t_lst *)malloc(sizeof(t_lst))))
-			return (NULL);
+		return (NULL);
 	ptr = head;
 	if (lstat(path, &st) <= 0)
 		fill_info(st, new, file, path);

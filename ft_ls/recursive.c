@@ -6,7 +6,7 @@
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 15:25:02 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/03/11 15:33:15 by qdiaz            ###   ########.fr       */
+/*   Updated: 2016/03/12 15:33:27 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static void		r_on(char **dirs, char *path, int nb_dir, t_opt *opt)
 	}
 }
 
-void	recursive(char *path, t_lst *lst, t_opt *opt)
+void			recursive(char *path, t_lst *lst, t_opt *opt)
 {
 	char	**dirs;
 	int		i;

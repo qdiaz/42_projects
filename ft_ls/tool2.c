@@ -6,7 +6,7 @@
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 16:09:53 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/03/11 16:55:52 by qdiaz            ###   ########.fr       */
+/*   Updated: 2016/03/12 15:47:58 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	*get_pathname(t_lst *lst, char *path)
 
 	if (path[ft_strlen(path) - 1] != '/')
 	{
-		tmp =	 ft_strjoin(path, "/");
+		tmp = ft_strjoin(path, "/");
 		lst->path = ft_strjoin(tmp, lst->name);
 		ft_strdel(&tmp);
 	}
@@ -61,4 +61,18 @@ char	*get_path(char *path)
 		j++;
 	}
 	return (new);
+}
+
+void	swap_string(int *time[], char **name, int start, int j)
+{
+	int		itmp;
+	char	*stmp;
+
+	itmp = 0;
+	itmp = time[j][start + 1];
+	time[j][start] = time[j][start + 1];
+	time[j][start + 1] = itmp;
+	stmp = name[start];
+	name[start] = ft_strdup(name[start + 1]);
+	name[start + 1] = ft_strdup(stmp);
 }

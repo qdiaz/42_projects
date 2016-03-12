@@ -6,13 +6,13 @@
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 13:49:01 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/03/11 17:02:53 by qdiaz            ###   ########.fr       */
+/*   Updated: 2016/03/12 15:24:23 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-static void	put_long(t_lst *lst)
+static void		put_long(t_lst *lst)
 {
 	ft_putstr_s(lst->perm);
 	ft_putstr_s(lst->link);
@@ -27,13 +27,13 @@ static void	put_long(t_lst *lst)
 	else
 		ft_putstr_s(lst->majmin);
 	ft_putstr_s(lst->date);
-	ft_putendl(lst->name);
+	ft_putstr(lst->name);
 	if (lst->perm[0] == 'l')
 		put_link(lst->path);
 	ft_putchar('\n');
 }
 
-void	display_lst(t_lst *lst, int hidd)
+void			display_lst(t_lst *lst, int hidd)
 {
 	if (!hidd)
 	{
@@ -54,7 +54,7 @@ void	display_lst(t_lst *lst, int hidd)
 	}
 }
 
-void	display_llst(t_lst *lst, int hidd)
+void			display_llst(t_lst *lst, int hidd)
 {
 	if (!hidd)
 	{
@@ -75,7 +75,7 @@ void	display_llst(t_lst *lst, int hidd)
 	}
 }
 
-void	display_rlst(t_lst *lst, int hidd)
+void			display_rlst(t_lst *lst, int hidd)
 {
 	if (!hidd)
 	{
@@ -83,7 +83,7 @@ void	display_rlst(t_lst *lst, int hidd)
 		{
 			display_rlst(lst->next, hidd);
 			if (ft_strncmp(lst->name, ".", 1))
-				ft_putendl(lst->name);	
+				ft_putendl(lst->name);
 		}
 	}
 	else
@@ -96,7 +96,7 @@ void	display_rlst(t_lst *lst, int hidd)
 	}
 }
 
-void	display_rllst(t_lst *lst, int hidd)
+void			display_rllst(t_lst *lst, int hidd)
 {
 	if (!hidd)
 	{

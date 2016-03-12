@@ -6,11 +6,11 @@
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 15:49:29 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/03/11 15:50:48 by qdiaz            ###   ########.fr       */
+/*   Updated: 2016/03/12 15:28:58 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"ft_ls.h"
+#include "ft_ls.h"
 
 static void		manage_opt_bis(t_lst *lst, t_opt *opt, char *path, int hidd)
 {

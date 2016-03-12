@@ -6,24 +6,24 @@
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 13:49:12 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/03/11 17:02:56 by qdiaz            ###   ########.fr       */
+/*   Updated: 2016/03/12 15:26:43 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-static void	put_error(char *path)
+static void		put_error(char *path)
 {
 	ft_putstr("ft_ls: ");
 	perror(remove_slash(path));
 	exit(1);
 }
 
-static char *get_name_file(char *path)
+static char		*get_name_file(char *path)
 {
-	int end;
-	int start;
-	char *tmp;
+	int		end;
+	int		start;
+	char	*tmp;
 
 	end = ft_strlen(path) - 1;
 	start = end;
@@ -36,9 +36,9 @@ static char *get_name_file(char *path)
 	return (tmp);
 }
 
-char *format_path(char *path)
+char			*format_path(char *path)
 {
-	int	i;
+	int		i;
 	char	*tmp;
 
 	i = ft_strlen(path) - 1;
@@ -63,7 +63,7 @@ char *format_path(char *path)
 	return (NULL);
 }
 
-t_lst	*manage_av_file(char *path, t_lst *lst, DIR *dir)
+t_lst			*manage_av_file(char *path, t_lst *lst, DIR *dir)
 {
 	char			*formated;
 	char			*file_name;
@@ -78,10 +78,10 @@ t_lst	*manage_av_file(char *path, t_lst *lst, DIR *dir)
 	{
 		file_name = get_name_file(path);
 		while ((ret = readdir(dir)))
-			if ((ft_strcmp(ret->d_name, file_name) == 0)) // si match
+			if ((ft_strcmp(ret->d_name, file_name) == 0))
 			{
 				lst = get_info(lst, ret->d_name, path);
-				break;
+				break ;
 			}
 		if (!lst)
 			return (NULL);

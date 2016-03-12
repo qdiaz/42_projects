@@ -6,13 +6,13 @@
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 13:50:17 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/03/11 17:57:07 by qdiaz            ###   ########.fr       */
+/*   Updated: 2016/03/12 15:35:54 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-static char	*add_unit(int size)
+static char		*add_unit(int size)
 {
 	if (size >= 1 && size <= 3)
 		return (" B");
@@ -26,7 +26,7 @@ static char	*add_unit(int size)
 		return (" T");
 }
 
-static char	*add_dot(char *s, size_t size)
+static char		*add_dot(char *s, size_t size)
 {
 	size_t	toput;
 	char	*tmp;
@@ -45,7 +45,7 @@ static char	*add_dot(char *s, size_t size)
 	return (tmp);
 }
 
-char	*format_size(char *s)
+char			*format_size(char *s)
 {
 	size_t	size;
 	char	*formated;
@@ -73,7 +73,7 @@ char	*format_size(char *s)
 	return (formated);
 }
 
-void	put_total(t_lst *lst, int hidd)
+void			put_total(t_lst *lst, int hidd)
 {
 	int res;
 
@@ -99,26 +99,26 @@ void	put_total(t_lst *lst, int hidd)
 	ft_putnbr_endl(res);
 }
 
-int		count_dir(t_lst *lst, t_opt *opt)
+int				count_dir(t_lst *lst, t_opt *opt)
 {
 	int		i;
 
 	i = 1;
 	if (opt->a)
 	{
-	while (lst)
-	{
-		if (lst->is_dir)
-			i++;
-		lst = lst->next;
-	}
-	return (i);
+		while (lst)
+		{
+			if (lst->is_dir)
+				i++;
+			lst = lst->next;
+		}
+		return (i);
 	}
 	else if (!opt->a)
 	{
 		while (lst)
 		{
-			if (lst->is_dir &&ft_strncmp(&lst->name[0], ".", 1))
+			if (lst->is_dir && ft_strncmp(&lst->name[0], ".", 1))
 				i++;
 			lst = lst->next;
 		}

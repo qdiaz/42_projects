@@ -6,7 +6,7 @@
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/10 15:17:16 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/03/11 17:02:47 by qdiaz            ###   ########.fr       */
+/*   Updated: 2016/03/12 17:40:02 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,19 +33,19 @@ static char	get_file_type(struct stat *st)
 	return (c);
 }
 
-static void get_perm(struct stat *st, t_lst *lst)
+static void	get_perm(struct stat *st, t_lst *lst)
 {
 	ft_bzero(lst->perm, 11);
 	lst->perm[0] = get_file_type(st);
-	lst->perm[1] = (st->st_mode &S_IRUSR) ? 'r' : '-';
-	lst->perm[2] = (st->st_mode &S_IWUSR) ? 'w' : '-';
-	lst->perm[3] = (st->st_mode &S_IXUSR) ? 'x' : '-';
-	lst->perm[4] = (st->st_mode &S_IRGRP) ? 'r' : '-';
-	lst->perm[5] = (st->st_mode &S_IWGRP) ? 'w' : '-';
-	lst->perm[6] = (st->st_mode &S_IXGRP) ? 'x' : '-';
-	lst->perm[7] = (st->st_mode &S_IROTH) ? 'r' : '-';
-	lst->perm[8] = (st->st_mode &S_IWOTH) ? 'w' : '-';
-	lst->perm[9] = (st->st_mode &S_IXOTH) ? 'x' : '-';
+	lst->perm[1] = (st->st_mode & S_IRUSR) ? 'r' : '-';
+	lst->perm[2] = (st->st_mode & S_IWUSR) ? 'w' : '-';
+	lst->perm[3] = (st->st_mode & S_IXUSR) ? 'x' : '-';
+	lst->perm[4] = (st->st_mode & S_IRGRP) ? 'r' : '-';
+	lst->perm[5] = (st->st_mode & S_IWGRP) ? 'w' : '-';
+	lst->perm[6] = (st->st_mode & S_IXGRP) ? 'x' : '-';
+	lst->perm[7] = (st->st_mode & S_IROTH) ? 'r' : '-';
+	lst->perm[8] = (st->st_mode & S_IWOTH) ? 'w' : '-';
+	lst->perm[9] = (st->st_mode & S_IXOTH) ? 'x' : '-';
 }
 
 static char	*last_word(char *s)
@@ -115,7 +115,7 @@ void		fill_info(struct stat st, t_lst *new, char *file, char *path)
 	new->name = ft_strdup(file);
 	new->min = ft_itoa(minor(st.st_rdev));
 	new->maj = ft_strjoin(ft_itoa(major(st.st_rdev)), ",");
-	new->is_dir = (new->perm[0] == 'd' &&ft_strcmp(new->name, ".")
+	new->is_dir = (new->perm[0] == 'd' && ft_strcmp(new->name, ".")
 			&& ft_strcmp(new->name, ".."));
 	new->path = get_pathname(new, path);
 	new->next = NULL;

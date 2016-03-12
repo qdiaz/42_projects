@@ -6,13 +6,13 @@
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 13:49:52 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/03/11 15:51:14 by qdiaz            ###   ########.fr       */
+/*   Updated: 2016/03/12 15:32:30 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-void	init_opt(t_opt *opt)
+void			init_opt(t_opt *opt)
 {
 	opt->l = 0;
 	opt->big_r = 0;
@@ -21,7 +21,7 @@ void	init_opt(t_opt *opt)
 	opt->t = 0;
 }
 
-static void	err_opt(char *err)
+static void		err_opt(char *err)
 {
 	ft_putstr_fd("ft_ls: illegal option -- ", 2);
 	ft_putendl_fd(err, 2);
@@ -29,12 +29,12 @@ static void	err_opt(char *err)
 	exit(1);
 }
 
-static int 	valid_opt(char o)
+static int		valid_opt(char o)
 {
 	return ((o == 'l' || o == 'R' || o == 'a' || o == 'r' || o == 't'));
 }
 
-int			get_opt(char *opts, t_opt *opt)
+int				get_opt(char *opts, t_opt *opt)
 {
 	int i;
 

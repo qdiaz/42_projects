@@ -6,27 +6,13 @@
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 16:33:35 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/03/11 16:35:11 by qdiaz            ###   ########.fr       */
+/*   Updated: 2016/03/12 15:47:41 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-void	swap_string(int *time[], char **name, int start, int j)
-{
-	int		itmp;
-	char	*stmp;
-
-	itmp = 0;
-	itmp = time[j][start];
-	time[j][start] = time[j][start + 1];
-	time[j][start + 1] = itmp;
-	stmp = name[start];
-	name[start] = ft_strdup(name[start + 1]);
-	name[start + 1] = ft_strdup(stmp);
-}
-
-static char		**sort_time(int start, int end, char **name, int *time[])
+static char	**sort_time(int start, int end, char **name, int *time[])
 {
 	int		i;
 
@@ -54,7 +40,7 @@ static char		**sort_time(int start, int end, char **name, int *time[])
 	return (name);
 }
 
-static int		while_is_error(char **tab, char **cpy_name, int *cpy_date[])
+static int	while_is_error(char **tab, char **cpy_name, int *cpy_date[])
 {
 	int i;
 
@@ -70,13 +56,13 @@ static int		while_is_error(char **tab, char **cpy_name, int *cpy_date[])
 	return (i);
 }
 
-static intwhile_is_file(char **tab, char **cpy_name, int *c		py_date[], int i)
+static int	while_is_file(char **tab, char **cpy_name, int *cpy_date[], int i)
 {
-	intend;
-	intstart;
-	struct statst;
+	int				end;
+	int				start;
+	struct stat		st;
 
-	start 							= i;
+	start = i;
 	if (is_what(tab[i]) == 0)
 		while (is_what(tab[i]) == 0)
 		{
@@ -92,15 +78,15 @@ static intwhile_is_file(char **tab, char **cpy_name, int *c		py_date[], int i)
 	return (i);
 }
 
-static intwhile_is		_dir(char **tab, char **name, int *date[], int i)
+static int	while_is_dir(char **tab, char **name, int *date[], int i)
 {
-	struct dirent*ret	;
-	struct statst;
-	intstart;
-	DIR*dir;
+	struct dirent	*ret;
+	struct stat		st;
+	int				start;
+	DIR				*dir;
 
 	start = i;
-	if (is_w										hat(tab[i]) == 1)
+	if (is_what(tab[i]) == 1)
 		while (is_what(tab[i]) == 1)
 		{
 			dir = opendir(tab[i]);
@@ -117,14 +103,14 @@ static intwhile_is		_dir(char **tab, char **name, int *date[], int i)
 	return (i);
 }
 
-char**sort_tab_time(char **tab, int 			len)
+char		**sort_tab_time(char **tab, int len)
 {
-	inti;
-	char**cpy_name;
-	int*cpy_date[2];
+	int		i;
+	char	**cpy_name;
+	int		*cpy_date[2];
 
 	i = 0;
-	if (!(c					py_name = (char **)malloc(sizeof(char *) * (len + 1))))
+	if (!(cpy_name = (char **)malloc(sizeof(char *) * (len + 1))))
 		return (NULL);
 	cpy_date[0] = (int *)malloc(sizeof(int) * (len + 1));
 	cpy_date[1] = (int *)malloc(sizeof(int) * (len + 1));

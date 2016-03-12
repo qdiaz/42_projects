@@ -6,7 +6,7 @@
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 13:50:31 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/03/11 16:01:45 by qdiaz            ###   ########.fr       */
+/*   Updated: 2016/03/12 15:34:11 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static t_lst	*lst_swap(t_lst *p1, t_lst *p2)
 	return (p2);
 }
 
-t_lst	*lst_sort_ascii(t_lst *lst)
+t_lst			*lst_sort_ascii(t_lst *lst)
 {
 	if (lst == NULL)
 		return (NULL);
@@ -34,7 +34,7 @@ t_lst	*lst_sort_ascii(t_lst *lst)
 	return (lst);
 }
 
-t_lst	*lst_sort_time(t_lst *lst)
+t_lst			*lst_sort_time(t_lst *lst)
 {
 	if (lst == NULL)
 		return (NULL);

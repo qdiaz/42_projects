@@ -6,7 +6,7 @@
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 13:50:04 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/03/11 17:54:14 by qdiaz            ###   ########.fr       */
+/*   Updated: 2016/03/12 15:36:41 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void		init_pad(t_pad *pad, t_lst **lst)
 	pad->len_majmin = 0;
 }
 
-static char	*put_s_before(char *str, int max)
+static char		*put_s_before(char *str, int max)
 {
 	int		i;
 	int		j;
@@ -51,7 +51,7 @@ static char	*put_s_before(char *str, int max)
 		return (str);
 }
 
-static void	apply_padding(t_pad *pad, t_lst **lst)
+static void		apply_padding(t_pad *pad, t_lst **lst)
 {
 	t_lst *tmp;
 
@@ -61,8 +61,10 @@ static void	apply_padding(t_pad *pad, t_lst **lst)
 		while (tmp)
 		{
 			tmp->link = put_s_before(tmp->link, pad->len_lnk);
-			tmp->user_id = ft_strnjoin(tmp->user_id, " ", (pad->len_usr - ft_strlen(tmp->user_id)));
-			tmp->group_id = ft_strnjoin(tmp->group_id, " ", (pad->len_grp - ft_strlen(tmp->group_id)));
+			tmp->user_id = ft_strnjoin(tmp->user_id, " ",
+					(pad->len_usr - ft_strlen(tmp->user_id)));
+			tmp->group_id = ft_strnjoin(tmp->group_id, " ",
+					(pad->len_grp - ft_strlen(tmp->group_id)));
 			tmp->size = put_s_before(tmp->size, pad->len_siz);
 			tmp->maj = put_s_before(tmp->maj, pad->len_maj);
 			tmp->min = put_s_before(tmp->min, pad->len_min);
@@ -73,7 +75,7 @@ static void	apply_padding(t_pad *pad, t_lst **lst)
 	}
 }
 
-void		padding(t_lst **lst, t_pad *pad)
+void			padding(t_lst **lst, t_pad *pad)
 {
 	t_lst	*tmp;
 

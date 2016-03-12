@@ -6,7 +6,7 @@
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 13:50:44 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/03/11 16:05:33 by qdiaz            ###   ########.fr       */
+/*   Updated: 2016/03/12 15:37:35 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ char			**reverse_tab(char **tab)
 	char	**cpy;
 
 	i = 0;
-	if (!(cpy = (char **)malloc(sizeof(char *)	 * (ft_tablen(tab) + 1))))
+	if (!(cpy = (char **)malloc(sizeof(char *) * (ft_tablen(tab) + 1))))
 		return (NULL);
 	while (is_what(tab[i]) == -1)
 	{
