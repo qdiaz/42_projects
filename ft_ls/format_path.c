@@ -6,7 +6,7 @@
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 13:49:12 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/03/12 15:26:43 by qdiaz            ###   ########.fr       */
+/*   Updated: 2016/03/14 15:30:24 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,25 +42,24 @@ char			*format_path(char *path)
 	char	*tmp;
 
 	i = ft_strlen(path) - 1;
-	if (path[i] == '/')
-		return (NULL);
-	else
+	if (path)
 	{
-		tmp = ft_strdup(path);
-		while (tmp[i] != '/' && i > 0)
-			i--;
-		if (i == 0)
-		{
-			tmp = ft_strdup("./");
-			return (tmp);
-		}
+		if (path[i] == '/')
+			return (NULL);
 		else
 		{
-			tmp = add_slash(ft_strndup(path, i));
+			tmp = ft_strdup(path);
+			while (tmp[i] != '/' && i > 0)
+				i--;
+			if (i == 0)
+				tmp = ft_strdup("./");
+			else
+				tmp = add_slash(ft_strndup(path, i));
 			return (tmp);
 		}
 	}
-	return (NULL);
+	else
+		return (NULL);
 }
 
 t_lst			*manage_av_file(char *path, t_lst *lst, DIR *dir)

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   data.c                                             :+:      :+:    :+:   */
+/*   data2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/03/10 15:17:16 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/03/12 17:40:02 by qdiaz            ###   ########.fr       */
+/*   Created: 2016/03/14 15:30:32 by qdiaz             #+#    #+#             */
+/*   Updated: 2016/03/14 15:32:25 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static char	*last_word(char *s)
 	is_word = 0;
 	while (*s)
 	{
-		if (!(ft_isspace(*s) && !is_word))
+		if (!ft_isspace(*s) && !is_word)
 		{
 			ptr = s;
 			is_word = 1;
@@ -66,7 +66,7 @@ static char	*last_word(char *s)
 			is_word = 0;
 		s++;
 	}
-	return (s);
+	return (ptr);
 }
 
 static char	*get_time(const long *f_time)

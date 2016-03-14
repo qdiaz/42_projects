@@ -6,7 +6,7 @@
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 13:50:17 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/03/12 15:35:54 by qdiaz            ###   ########.fr       */
+/*   Updated: 2016/03/14 15:20:32 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,9 @@ char			*format_size(char *s)
 	if (size >= 4)
 	{
 		formated = add_dot(s, size);
-		free(s);
-		s = NULL;
+		ft_strdel(&s);
 		ft_strcat(formated, end);
-		free(end);
-		end = NULL;
+		ft_strdel(&end);
 		return (formated);
 	}
 	else

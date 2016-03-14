@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   padding.c                                          :+:      :+:    :+:   */
+/*   padding2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/02/22 13:50:04 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/03/12 15:36:41 by qdiaz            ###   ########.fr       */
+/*   Created: 2016/03/14 15:41:29 by qdiaz             #+#    #+#             */
+/*   Updated: 2016/03/14 15:45:17 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-static void		init_pad(t_pad *pad, t_lst **lst)
+static void	init_pad(t_pad *pad, t_lst **lst)
 {
 	pad->len_usr = ft_strlen((*lst)->user_id);
 	pad->len_grp = ft_strlen((*lst)->group_id);
@@ -23,7 +23,7 @@ static void		init_pad(t_pad *pad, t_lst **lst)
 	pad->len_majmin = 0;
 }
 
-static char		*put_s_before(char *str, int max)
+static char	*put_s_before(char *str, int max)
 {
 	int		i;
 	int		j;
@@ -32,7 +32,7 @@ static char		*put_s_before(char *str, int max)
 
 	i = 0;
 	j = max - (int)ft_strlen(str);
-	if (!(tmp = malloc(sizeof(char) * ft_strlen(str) + 1)))
+	if (!(tmp = (char *)malloc(sizeof(char) * (ft_strlen(str) + j + 1))))
 		return (NULL);
 	if (j > 0)
 	{
@@ -45,13 +45,14 @@ static char		*put_s_before(char *str, int max)
 				tmp[i++] = str[k++];
 			i++;
 		}
+		tmp[--i] = '\0';
 		return (tmp);
 	}
 	else
 		return (str);
 }
 
-static void		apply_padding(t_pad *pad, t_lst **lst)
+static void	apply_padding(t_pad *pad, t_lst **lst)
 {
 	t_lst *tmp;
 
@@ -75,7 +76,7 @@ static void		apply_padding(t_pad *pad, t_lst **lst)
 	}
 }
 
-void			padding(t_lst **lst, t_pad *pad)
+void		padding(t_lst **lst, t_pad *pad)
 {
 	t_lst	*tmp;
 
