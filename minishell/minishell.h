@@ -6,7 +6,7 @@
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/24 16:59:11 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/03/24 17:10:34 by qdiaz            ###   ########.fr       */
+/*   Updated: 2016/03/24 17:33:50 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,6 @@ t_env					*env_in_list(char *envar, t_env *start);
 void					print_list(t_env *env);
 void					print_tab(char **tab);
 int						read_entry(char **cmd, t_env *env);
-void					print_prompt(void);
+void					print_prompt(char **env);
+char					*get_env_data(char **env, char *var);
 #endif

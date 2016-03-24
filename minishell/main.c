@@ -6,7 +6,7 @@
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/24 16:59:03 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/03/24 17:10:49 by qdiaz            ###   ########.fr       */
+/*   Updated: 2016/03/24 17:31:10 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int				main(int argc, char **argv, char **environ)
 		ft_strlen(argv[0]);
 		while ((read_entry(ft_strsplit(line, ';'), env)) != -1)
 		{
-			print_prompt();
+			print_prompt(environ);
 			get_next_line(0, &line);
 		}
 		ft_strdel(&line);

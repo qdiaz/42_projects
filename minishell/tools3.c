@@ -6,7 +6,7 @@
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/24 16:59:31 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/03/24 16:59:33 by qdiaz            ###   ########.fr       */
+/*   Updated: 2016/03/24 17:35:32 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,3 +49,31 @@ char	**list_in_tab(t_env *env)
 	envir[i] = 0;
 	return (envir);
 }
+
+char	*get_env_data(char **env, char *var)
+{
+	int		i;
+	int		start;
+	char	*tmp;
+	char	*content;
+
+	if (env && *env)
+	{
+		i = 0;
+		while (env[i])
+		{
+			if (!ft_strncmp(env[i], var, ft_strlen(var)))
+			{
+				start = ft_strlen(var);
+				tmp = ft_strsub(env[i], start, ft_strlen(env[i]) - start);
+				content = ft_strdup(tmp);
+				ft_strdel(&tmp);
+				return (content);
+			}
+			i++;
+		}
+		return (NULL);
+	}
+	return (NULL);
+}
+
