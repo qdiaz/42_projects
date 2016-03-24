@@ -5,55 +5,44 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/03/16 15:57:32 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/03/21 17:56:33 by qdiaz            ###   ########.fr       */
+/*   Created: 2016/03/24 16:59:11 by qdiaz             #+#    #+#             */
+/*   Updated: 2016/03/24 17:10:34 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
-
 # include "libft/libft.h"
-# include <sys/wait.h>
-# include <sys/stat.h>
-# include <sys/types.h>
-# include <sys/uio.h>
 # include <dirent.h>
 
-typedef struct		s_env
+typedef struct			s_env
 {
 	char			*name;
-	char			*data;
+	char			*content;
 	struct s_env	*next;
-}					t_env;
+}						t_env;
 
-/*
- * ============================= get_var_info.c ==============================
-*/
-
-char				*get_var_content(char *envar);
-char				*get_var_name(char *envar);
-
-/*
- * ================================= param.c =================================
-*/
-
-t_env				*env_in_list(char *envar, t_env *start);
-int					read_entry(char **cmd, t_env *env);
-int					manage_entry(char **cmd, t_env *env);
-
-/*
- * ================================== env.c ==================================
-*/
-
-t_env				*ft_set_env(char **cmd, t_env *env);
-void				ft_unset_env(t_env **begin_list, char *varname);
-
-/*
-* ================================== tools.c ================================
-*/
-
-void				prompt(void);
-void				print_env(t_env *env);
-
+int						list_size(t_env *env);
+char					**list_in_tab(t_env *env);
+char					**path_in_tab(t_env *env);
+int						exe_fork(t_env *env, char **cmd, char **path_tab);
+void					ft_env(t_env *env, char **cmd);
+t_env					*var_cpy(t_env *env, t_env *cpy);
+t_env					*env_cpy(t_env *envtmp, t_env *env);
+void					change_varcontent(t_env *env,
+										char *name_ref, char *data);
+void					ft_cd(char *moveto, t_env *env);
+char					*getvarname(char *envar);
+char					*getvarcontent(char *envar);
+void					ft_unsetenv(t_env **begin_list, char *varname);
+t_env					*ft_setenv(char **cmd, t_env *env);
+void					free_list(t_env **head);
+void					free_tab(char **tab);
+char					**ft_tabdup(char **tab);
+int						count_tablen(char **tab);
+t_env					*env_in_list(char *envar, t_env *start);
+void					print_list(t_env *env);
+void					print_tab(char **tab);
+int						read_entry(char **cmd, t_env *env);
+void					print_prompt(void);
 #endif
