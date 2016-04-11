@@ -5,19 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/03/24 16:58:53 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/03/24 16:58:54 by qdiaz            ###   ########.fr       */
+/*   Created: 2016/04/11 15:18:36 by qdiaz             #+#    #+#             */
+/*   Updated: 2016/04/11 15:18:37 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static void		unsetenv_error(char *varname)
-{
-	ft_putstr_fd("Error: ", 2);
-	ft_putstr_fd(varname, 2);
-	ft_putstr_fd(": Not found\n", 2);
-}
 
 void			ft_unsetenv(t_env **begin_list, char *varname)
 {
@@ -37,6 +30,4 @@ void			ft_unsetenv(t_env **begin_list, char *varname)
 		else
 			ft_unsetenv(&(*begin_list)->next, varname);
 	}
-	else if (*begin_list == NULL)
-		unsetenv_error(varname);
 }

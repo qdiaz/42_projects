@@ -5,20 +5,18 @@
 #                                                     +:+ +:+         +:+      #
 #    By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2016/03/21 16:00:36 by qdiaz             #+#    #+#              #
-#    Updated: 2016/03/24 16:22:43 by qdiaz            ###   ########.fr        #
+#    Created: 2016/04/11 15:14:49 by qdiaz             #+#    #+#              #
+#    Updated: 2016/04/11 17:17:20 by qdiaz            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
-
-SRC = main.c tools.c ft_param.c free.c\
-	ft_setenv.c ft_unsetenv.c ft_cd.c tools2.c\
-	env.c fork.c tools3.c
+SRC = main.c	tools.c		ft_param.c		free.c\
+	ft_setenv.c	ft_unsetenv.c	ft_cd.c		tools2.c\
+	env.c	fork.c	tools3.c	ft_strsplit_ws.c\
+	env2.c
 OBJ = $(SRC:.c=.o)
-
 LIB = ./libft/libft.a
-
 FLAGS = -Wall -Wextra -Werror
 
 $(NAME): $(OBJ)

@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/03/24 16:59:24 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/03/24 16:59:25 by qdiaz            ###   ########.fr       */
+/*   Created: 2016/04/11 15:20:04 by qdiaz             #+#    #+#             */
+/*   Updated: 2016/04/11 15:20:05 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,13 @@ char		*getvarcontent(char *envar)
 	j = 0;
 	while (envar[i])
 		i++;
-	while (envar[j] != '=')
+	while (envar[j] != '=' && envar[j])
 		j++;
 	j += 1;
-	varcontent = ft_strsub(envar, j, i);
+	if (j == i)
+		return ("");
+	else
+		varcontent = ft_strsub(envar, j, i);
 	return (varcontent);
 }
 

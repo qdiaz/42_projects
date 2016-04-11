@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/03/24 16:59:18 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/03/24 17:37:20 by qdiaz            ###   ########.fr       */
+/*   Created: 2016/04/11 15:19:35 by qdiaz             #+#    #+#             */
+/*   Updated: 2016/04/11 20:06:35 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,12 +69,7 @@ void		print_tab(char **tab)
 	}
 }
 
-void		print_prompt(char **env)
+void		print_prompt(void)
 {
-	char	*pwd;
-
-	pwd = get_env_data(env, "PWD=");
-	ft_putstr(pwd);
-	ft_putchar(' ');
 	ft_putstr("$> ");
 }

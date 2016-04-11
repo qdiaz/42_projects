@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/03/24 16:59:03 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/03/24 17:31:10 by qdiaz            ###   ########.fr       */
+/*   Created: 2016/04/11 15:18:53 by qdiaz             #+#    #+#             */
+/*   Updated: 2016/04/11 17:18:10 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,15 @@ int				main(int argc, char **argv, char **environ)
 	while (envi[++i] != 0)
 		env = env_in_list(envi[i], env);
 	free_tab(envi);
-	if (argc == 1)
+	i = 0;
+	if (argc == 1 && argv[0])
 	{
-		ft_strlen(argv[0]);
-		while ((read_entry(ft_strsplit(line, ';'), env)) != -1)
+		while ((read_entry(ft_strsplit(line, ';'), &env)) != -1)
 		{
-			print_prompt(environ);
+			print_prompt();
+			ft_strdel(&line);
 			get_next_line(0, &line);
 		}
-		ft_strdel(&line);
 	}
 	free_list(&env);
 	return (0);

@@ -5,12 +5,58 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/03/24 16:59:31 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/03/24 17:37:23 by qdiaz            ###   ########.fr       */
+/*   Created: 2016/04/11 15:20:40 by qdiaz             #+#    #+#             */
+/*   Updated: 2016/04/11 17:17:44 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+char	**ft_tabdup_path(char **tab, char *content)
+{
+	char	**tab_cpy;
+	int		i;
+
+	i = 0;
+	if (!(tab_cpy = (char **)malloc(sizeof(char *) * (count_tablen(tab) + 2))))
+		exit(1);
+	while (tab[i] != 0)
+	{
+		tab_cpy[i] = ft_strdup(tab[i]);
+		i++;
+	}
+	tab_cpy[i] = ft_strdup(content);
+	free_tab(tab);
+	return (tab_cpy);
+}
+
+char	**part_tabcpy(char **tab)
+{
+	int		i;
+	int		j;
+	int		count;
+	char	**new;
+
+	i = 2;
+	j = 0;
+	count = 0;
+	while (tab[i] != 0)
+	{
+		count++;
+		i++;
+	}
+	if (!(new = (char **)malloc(sizeof(char *) * count + 1)))
+		return (NULL);
+	i = 2;
+	while (tab[i] != 0)
+	{
+		new[j] = ft_strdup(tab[i]);
+		j++;
+		i++;
+	}
+	new[j] = NULL;
+	return (new);
+}
 
 int		list_size(t_env *env)
 {
@@ -50,7 +96,7 @@ char	**list_in_tab(t_env *env)
 	return (envir);
 }
 
-char	*get_env_data(char **env, char *var)
+char	*get_var_content(char **env, char *var)
 {
 	int		i;
 	int		start;
@@ -76,4 +122,3 @@ char	*get_env_data(char **env, char *var)
 	}
 	return (NULL);
 }
-
