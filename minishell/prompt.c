@@ -5,86 +5,78 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/04/11 15:40:40 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/04/11 17:16:47 by qdiaz            ###   ########.fr       */
+/*   Created: 2016/04/14 17:14:04 by qdiaz             #+#    #+#             */
+/*   Updated: 2016/04/14 17:14:05 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void			color(char *color, char *toput)
+static void		ft_putstr_sp(char *str)
+{
+	ft_putstr(str);
+	ft_putchar(' ');
+}
+
+static void		color(char *color, char *target)
 {
 	ft_putchar_fd('\033', 2);
 	ft_putstr_fd(color, 2);
-	ft_putstr_fd(toput, 2);
+	ft_putstr_fd(target, 2);
 }
 
-static void		put_home(char *cwd, char *home)
+static void		prompt_user(t_env *env)
 {
-	ft_putchar('~');
-	ft_putstr(ft_strstr(cwd, home) + ft_strlen(home));
-}
+	char *user;
 
-static char		**refresh_content(char **env, char *s, char *content)
-{
-	int		i;
-	char	*tmp;
-
-	i = 0;
-	if (env && *env)
-	{
-		i = -1;
-		while (env[++i])
-			if (!ft_strncmp(env[i], s, ft_strlen(s)) && content)
-			{
-				tmp = ft_strdup(env[i]);
-				tmp = ft_strjoin(s, content);
-				env[i] = tmp;
-				return (env);
-			}
-		return (env);
-	}
-	return (NULL);
-}
-
-static void		put_prompt(char *user, char *home, char *cwd)
-{
-	color(CYAN, "# ");
+	user = get_data(env, "USER");
+	ft_putstr("# ");
 	if (user)
-		ft_putstr(user);
+	{
+		color(YELLOW, user);
+		color(RESET, "");
+		ft_putstr(" in ");
+	}
 	else
-		ft_putstr("incognito");
-	color(RESET, " ");
-	color(YELLOW, "");
-	if (home && ft_strstr(cwd, home))
-		put_home(cwd, home);
-	else if (cwd[0])
-		ft_putstr(cwd);
-	else
-		color(RED, "nowhere");
-	ft_strdel(&user);
-	ft_strdel(&home);
-	color(RESET, " $> ");
+	{
+		color(RED, "unknown");
+		color(RESET, "");
+		ft_putstr(" in ");
+	}
 }
 
-void			prompt(char **env, int nb)
+static void		prompt_path(t_env *env)
 {
-	char	*ref_pwd;
+	char	*tmp;
 	char	*home;
-	char	*user;
-	char	cwd[150];
 
-	ref_pwd = NULL;
-	if (nb)
-		ref_pwd = get_var_content(env, "PWD=");
+	tmp = get_data(env, "PWD");
+	home = get_data(env, "HOME");
+	if (!tmp)
+	{
+		color(RED, "");
+		ft_putstr("somewhere ");
+		color(RESET, "");
+	}
+	else if (tmp && ft_strncmp(tmp, home, ft_strlen(home)) == 0)
+	{
+		color(GREEN, "");
+		ft_putstr("~");
+		ft_putstr_sp(ft_strsub(tmp, ft_strlen(home), ft_strlen(tmp)));
+		color(RESET, "");
+	}
 	else
-		ref_pwd = ft_strnew(150);
-	ft_bzero(cwd, 150);
-	getcwd(cwd, 150);
-	env = refresh_content(env, "PWD=", cwd);
-	user = get_var_content(env, "USER=");
-	home = get_var_content(env, "HOME=");
-	put_prompt(user, home, cwd);
-	if (nb)
-		env = refresh_content(env, "OLDPWD=", ref_pwd);
+	{
+		color(BLUE, "");
+		ft_putstr_sp(tmp);
+		color(RESET, "");
+	}
+}
+
+void			prompt(t_env *env)
+{
+	prompt_user(env);
+	prompt_path(env);
+	color(BLUE, " \n$> ");
+	color(RESET, "");
 }

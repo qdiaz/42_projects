@@ -1,27 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_tablen.c                                        :+:      :+:    :+:   */
+/*   tools4.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/03/11 17:42:09 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/04/14 11:59:16 by qdiaz            ###   ########.fr       */
+/*   Created: 2016/04/14 17:15:29 by qdiaz             #+#    #+#             */
+/*   Updated: 2016/04/14 17:15:31 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-int		ft_tablen(char **tab)
+char	*get_data(t_env *env, char *ref_name)
 {
-	int len;
-
-	len = 0;
-	if (tab && *tab)
+	while (env)
 	{
-		while (tab[len])
-			len++;
-		return (len);
+		if (ft_strcmp(env->name, ref_name) == 0)
+			return (env->content);
+		env = env->next;
 	}
-	return (0);
+	return (NULL);
+}
+
+int		list_size(t_env *env)
+{
+	int		size;
+
+	size = 0;
+	while (env)
+	{
+		size++;
+		env = env->next;
+	}
+	return (size);
 }

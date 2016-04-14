@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/04/11 15:18:53 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/04/11 17:18:10 by qdiaz            ###   ########.fr       */
+/*   Created: 2016/04/14 17:13:18 by qdiaz             #+#    #+#             */
+/*   Updated: 2016/04/14 17:30:58 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,18 +22,18 @@ int				main(int argc, char **argv, char **environ)
 	i = -1;
 	line = ft_strdup("");
 	envi = ft_tabdup(environ);
+	signal(SIGINT, SIG_IGN);
 	if (!(env = (t_env *)malloc(sizeof(t_env))))
 		exit(1);
 	env = NULL;
 	while (envi[++i] != 0)
 		env = env_in_list(envi[i], env);
 	free_tab(envi);
-	i = 0;
 	if (argc == 1 && argv[0])
 	{
 		while ((read_entry(ft_strsplit(line, ';'), &env)) != -1)
 		{
-			print_prompt();
+			prompt(env);
 			ft_strdel(&line);
 			get_next_line(0, &line);
 		}

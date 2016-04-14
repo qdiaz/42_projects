@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/04/11 15:19:15 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/04/11 20:06:33 by qdiaz            ###   ########.fr       */
+/*   Created: 2016/04/14 17:13:49 by qdiaz             #+#    #+#             */
+/*   Updated: 2016/04/14 17:13:51 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,6 @@
 # include "libft/libft.h"
 # include <dirent.h>
 # include <sys/stat.h>
-
-typedef struct			s_env
-{
-	char			*name;
-	char			*content;
-	struct s_env	*next;
-}						t_env;
-
 # define RED "[31m"
 # define BLUE "[34m"
 # define CYAN "[36m"
@@ -31,8 +23,18 @@ typedef struct			s_env
 # define YELLOW "[33m"
 # define MAGENTA "[35m"
 
+typedef struct			s_env
+{
+	char			*name;
+	char			*content;
+	struct s_env	*next;
+}						t_env;
+
 typedef struct stat		t_stat;
 
+char					*get_data(t_env *env, char *ref_name);
+char					*ft_getbin_path(char *cmd);
+char					*ft_getbin_name(char *cmd);
 void					ft_env_error(char *file);
 void					ft_env_usage(char opt);
 void					ft_bad_opt(char c);
@@ -45,7 +47,7 @@ char					**ft_strsplit_ws(char const *s);
 void					already_exist(t_env **begin_list, char *varname);
 int						list_size(t_env *env);
 char					**list_in_tab(t_env *env);
-char					**path_in_tab(t_env *env);
+char					**path_in_tab(t_env *env, char **cmd);
 int						exe_fork(t_env *env, char **cmd, char **path_tab);
 void					ft_env(t_env **env, t_env *tmpenv, char **cmd);
 t_env					*var_cpy(t_env *env, t_env *cpy);
@@ -65,9 +67,5 @@ t_env					*env_in_list(char *envar, t_env *start);
 void					print_list(t_env *env);
 void					print_tab(char **tab);
 int						read_entry(char **cmd, t_env **env);
-void					print_prompt(void);
-//char					*get_var_content(char **env, char *var);
-//void					prompt(char **env, int nb);
-//void					color(char *color, char *toput);
-
+void					prompt(t_env *env);
 #endif

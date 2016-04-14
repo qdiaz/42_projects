@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/04/11 15:17:41 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/04/11 15:17:43 by qdiaz            ###   ########.fr       */
+/*   Created: 2016/04/14 17:11:52 by qdiaz             #+#    #+#             */
+/*   Updated: 2016/04/14 17:11:54 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static int			do_builtin(char **cmd, t_env **env, t_env *tmpenv)
 			ft_cd(cmd[1], env);
 		else
 		{
-			if ((exe_fork(*env, cmd, path_in_tab(*env)) == -1))
+			if ((exe_fork(*env, cmd, path_in_tab(*env, cmd)) == -1))
 				return (1);
 		}
 	}

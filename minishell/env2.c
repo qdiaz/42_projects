@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/04/11 15:14:36 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/04/11 15:14:38 by qdiaz            ###   ########.fr       */
+/*   Created: 2016/04/14 17:10:46 by qdiaz             #+#    #+#             */
+/*   Updated: 2016/04/14 17:10:48 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,15 @@
 
 void		ft_env_i(t_env *env, char **cmd)
 {
+	char	**cmd_tab;
+
 	if (!cmd[2])
 		return ;
 	else
-		exe_fork2(env, cmd, path_in_tab(env));
+	{
+		cmd_tab = part_tabcpy(cmd);
+		exe_fork2(env, cmd_tab, path_in_tab(env, cmd_tab));
+	}
 }
 
 void		ft_bad_opt(char c)
