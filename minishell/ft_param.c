@@ -6,7 +6,7 @@
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/19 11:57:06 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/04/19 11:57:11 by qdiaz            ###   ########.fr       */
+/*   Updated: 2016/04/19 14:27:17 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ static int			do_builtin(char **cmd, t_env **env, t_env *tmpenv)
 	int		i;
 
 	i = 0;
+	if (!cmd[0])
+		return (0);
 	if (ft_strcmp(cmd[0], "exit") == 0)
 		return (-1);
 	else
@@ -41,10 +43,8 @@ static int			do_builtin(char **cmd, t_env **env, t_env *tmpenv)
 		if (ft_strcmp(cmd[0], "setenv") == 0)
 			*env = ft_setenv(cmd, env);
 		else if (ft_strcmp(cmd[0], "unsetenv") == 0)
-		{
 			while (cmd[++i])
 				ft_unsetenv(env, cmd[i]);
-		}
 		else if (ft_strcmp(cmd[0], "env") == 0)
 			ft_env(env, tmpenv, cmd);
 		else if (ft_strcmp(cmd[0], "cd") == 0)
