@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/04/14 17:13:49 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/04/14 17:13:51 by qdiaz            ###   ########.fr       */
+/*   Created: 2016/04/19 11:58:03 by qdiaz             #+#    #+#             */
+/*   Updated: 2016/04/19 11:58:05 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,12 @@ typedef struct			s_env
 
 typedef struct stat		t_stat;
 
+void					color(char *color, char *target);
+void					ft_putstr_sp(char *str);
+void					prompt2(char *new, char *tmp, char *home);
+char					*search_path2(char *tmp2, char *tmp,
+									char **path_tab, int i);
+void					fork_error(char **cmd, char **path_tab);
 char					*get_data(t_env *env, char *ref_name);
 char					*ft_getbin_path(char *cmd);
 char					*ft_getbin_name(char *cmd);
@@ -40,7 +46,7 @@ void					ft_env_usage(char opt);
 void					ft_bad_opt(char c);
 void					ft_env_i(t_env *env, char **cmd);
 int						env_manage_error(char *cmd);
-int						exe_fork2(t_env *env, char **cmd, char **path_tab);
+int						exe_fork2(char **cmd, char **path_tab);
 char					**part_tabcpy(char **tab);
 char					**ft_tabdup_path(char **tab, char *content);
 char					**ft_strsplit_ws(char const *s);
@@ -54,7 +60,7 @@ t_env					*var_cpy(t_env *env, t_env *cpy);
 t_env					*env_cpy(t_env *envtmp, t_env *env);
 void					change_varcontent(t_env *env,
 										char *name_ref, char *data);
-void					ft_cd(char *moveto, t_env **env);
+void					ft_cd(char **cmd, t_env **env);
 char					*getvarname(char *envar);
 char					*getvarcontent(char *envar);
 void					ft_unsetenv(t_env **begin_list, char *varname);

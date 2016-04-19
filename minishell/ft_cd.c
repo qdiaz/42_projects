@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/04/14 17:11:24 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/04/14 17:11:28 by qdiaz            ###   ########.fr       */
+/*   Created: 2016/04/19 11:56:58 by qdiaz             #+#    #+#             */
+/*   Updated: 2016/04/19 11:57:00 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,71 +16,78 @@ static void		ft_cd_prev(t_env *env)
 {
 	char	buf[512];
 	char	*tmp;
+	t_env	*tmpenv;
 
-	while (env)
+	tmpenv = env;
+	while (tmpenv)
 	{
-		if (ft_strcmp(env->name, "OLDPWD") == 0)
+		if (ft_strcmp(tmpenv->name, "OLDPWD") == 0)
 		{
-			tmp = env->content;
-			if (getwd(buf) != NULL)
-				change_varcontent(env, "OLDPWD", getwd(NULL));
+			tmp = tmpenv->content;
+			if (getcwd(buf, 512) != NULL)
+				change_varcontent(tmpenv, "OLDPWD", getcwd(buf, 512));
 			chdir(tmp);
-			change_varcontent(env, "PWD", getwd(NULL));
+			change_varcontent(env, "PWD", getcwd(buf, 512));
 		}
-		env = env->next;
+		tmpenv = tmpenv->next;
 	}
 }
 
 static void		ft_cd_home(t_env *env)
 {
 	char	buf[512];
+	t_env	*tmp;
 
+	tmp = env;
 	while (env)
 	{
 		if (ft_strcmp(env->name, "HOME") == 0)
 		{
-			if (getwd(buf) != NULL)
-				change_varcontent(env, "OLDPWD", getwd(NULL));
+			if (getcwd(buf, 512) != NULL)
+				change_varcontent(env, "OLDPWD", getcwd(buf, 512));
 			chdir(env->content);
-			change_varcontent(env, "PWD", getwd(NULL));
+			change_varcontent(tmp, "PWD", getcwd(buf, 512));
 		}
 		env = env->next;
 	}
 }
 
-static void		manage_error(char *moveto, t_env *env)
+static void		manage_error(char **cmd, t_env *env)
 {
 	t_stat	st;
+	char	buf[512];
 
-	if (stat(moveto, &st) == -1)
+	if (stat(cmd[1], &st) == -1)
 	{
-		ft_putstr_fd(moveto, 2);
+		ft_putstr_fd(cmd[1], 2);
 		ft_putstr_fd(": No such file or directory.\n", 2);
 	}
 	else if (!(S_ISDIR(st.st_mode)))
 	{
-		ft_putstr_fd(moveto, 2);
+		ft_putstr_fd(cmd[1], 2);
 		ft_putstr_fd(": Not a directory.\n", 2);
 	}
-	else if (access(moveto, X_OK) == -1)
+	else if (access(cmd[1], X_OK) == -1)
 	{
-		ft_putstr_fd(moveto, 2);
+		ft_putstr_fd(cmd[1], 2);
 		ft_putstr_fd(": Permission denied.\n", 2);
 	}
 	else
 	{
-		change_varcontent(env, "OLDPWD", getwd(NULL));
-		chdir(moveto);
-		change_varcontent(env, "PWD", getwd(NULL));
+		change_varcontent(env, "OLDPWD", getcwd(buf, 512));
+		chdir(cmd[1]);
+		change_varcontent(env, "PWD", getcwd(buf, 512));
 	}
 }
 
-void			ft_cd(char *moveto, t_env **env)
+void			ft_cd(char **cmd, t_env **env)
 {
-	if (!moveto || (ft_strcmp(moveto, "~") == 0))
+	if (!cmd[1] || (ft_strcmp(cmd[1], "~") == 0))
 		ft_cd_home(*env);
-	else if (ft_strcmp(moveto, "-") == 0)
+	else if (cmd[1] && cmd[2])
+		ft_putstr_fd("cd: Too many arguments.\n", 2);
+	else if (ft_strcmp(cmd[1], "-") == 0)
 		ft_cd_prev(*env);
 	else
-		manage_error(moveto, *env);
+		manage_error(cmd, *env);
 }

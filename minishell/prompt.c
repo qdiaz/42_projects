@@ -5,20 +5,20 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/04/14 17:14:04 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/04/14 17:14:05 by qdiaz            ###   ########.fr       */
+/*   Created: 2016/04/19 11:58:15 by qdiaz             #+#    #+#             */
+/*   Updated: 2016/04/19 11:58:18 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void		ft_putstr_sp(char *str)
+void			ft_putstr_sp(char *str)
 {
 	ft_putstr(str);
 	ft_putchar(' ');
 }
 
-static void		color(char *color, char *target)
+void			color(char *color, char *target)
 {
 	ft_putchar_fd('\033', 2);
 	ft_putstr_fd(color, 2);
@@ -30,7 +30,7 @@ static void		prompt_user(t_env *env)
 	char *user;
 
 	user = get_data(env, "USER");
-	ft_putstr("# ");
+	ft_putstr("\n# ");
 	if (user)
 	{
 		color(YELLOW, user);
@@ -49,7 +49,9 @@ static void		prompt_path(t_env *env)
 {
 	char	*tmp;
 	char	*home;
+	char	*new;
 
+	new = NULL;
 	tmp = get_data(env, "PWD");
 	home = get_data(env, "HOME");
 	if (!tmp)
@@ -59,12 +61,7 @@ static void		prompt_path(t_env *env)
 		color(RESET, "");
 	}
 	else if (tmp && ft_strncmp(tmp, home, ft_strlen(home)) == 0)
-	{
-		color(GREEN, "");
-		ft_putstr("~");
-		ft_putstr_sp(ft_strsub(tmp, ft_strlen(home), ft_strlen(tmp)));
-		color(RESET, "");
-	}
+		prompt2(new, tmp, home);
 	else
 	{
 		color(BLUE, "");

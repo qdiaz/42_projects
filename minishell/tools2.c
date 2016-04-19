@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/04/14 17:14:44 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/04/14 17:14:46 by qdiaz            ###   ########.fr       */
+/*   Created: 2016/04/19 11:58:35 by qdiaz             #+#    #+#             */
+/*   Updated: 2016/04/19 11:58:37 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ char		*getvarcontent(char *envar)
 		j++;
 	j += 1;
 	if (j == i)
-		return ("");
+		return (NULL);
 	else
 		varcontent = ft_strsub(envar, j, i);
 	return (varcontent);
@@ -68,7 +68,7 @@ char		*getvarname(char *envar)
 
 	i = 0;
 	j = 0;
-	while (envar[i] != '=')
+	while (envar[i] != '=' && envar[i])
 		i++;
 	varname = ft_strsub(envar, j, i);
 	return (varname);
@@ -80,8 +80,9 @@ void		change_varcontent(t_env *env, char *name_ref, char *data)
 	{
 		if (!(ft_strcmp(env->name, name_ref)))
 		{
-			ft_strdel(&(env->content));
-			env->content = data;
+			if (env->content)
+				ft_strdel(&(env->content));
+			env->content = ft_strdup(data);
 		}
 		env = env->next;
 	}

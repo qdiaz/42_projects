@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/04/14 17:11:52 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/04/14 17:11:54 by qdiaz            ###   ########.fr       */
+/*   Created: 2016/04/19 11:57:06 by qdiaz             #+#    #+#             */
+/*   Updated: 2016/04/19 11:57:11 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static int			do_builtin(char **cmd, t_env **env, t_env *tmpenv)
 		else if (ft_strcmp(cmd[0], "env") == 0)
 			ft_env(env, tmpenv, cmd);
 		else if (ft_strcmp(cmd[0], "cd") == 0)
-			ft_cd(cmd[1], env);
+			ft_cd(cmd, env);
 		else
 		{
 			if ((exe_fork(*env, cmd, path_in_tab(*env, cmd)) == -1))
@@ -65,9 +65,15 @@ static int			manage_entry(char **cmd, t_env **env)
 	tmpenv = NULL;
 	tmpenv = env_cpy(tmpenv, *env);
 	if (do_builtin(cmd, env, tmpenv) == -1)
+	{
+		free_list(&tmpenv);
 		return (-1);
+	}
 	else
+	{
+		free_list(&tmpenv);
 		return (0);
+	}
 }
 
 int					read_entry(char **cmd, t_env **env)
@@ -77,14 +83,19 @@ int					read_entry(char **cmd, t_env **env)
 
 	i = 0;
 	if (cmd == NULL)
-		return (-1);
+		return (1);
 	while (cmd[i])
 	{
 		tab = ft_strsplit_ws(cmd[i]);
 		if (manage_entry(tab, env) == -1)
+		{
+			free_tab(cmd);
+			free_tab(tab);
 			return (-1);
+		}
 		i++;
 		free_tab(tab);
 	}
+	free_tab(cmd);
 	return (0);
 }

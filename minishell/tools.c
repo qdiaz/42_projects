@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/04/14 17:14:14 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/04/14 17:14:16 by qdiaz            ###   ########.fr       */
+/*   Created: 2016/04/19 11:58:26 by qdiaz             #+#    #+#             */
+/*   Updated: 2016/04/19 11:58:28 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ void		print_list(t_env *env)
 		{
 			ft_putstr(env->name);
 			ft_putchar('=');
-			ft_putstr(env->content);
+			if (env->content)
+				ft_putstr(env->content);
 			ft_putchar('\n');
 			env = env->next;
 		}
