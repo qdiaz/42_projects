@@ -6,13 +6,13 @@
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/20 19:13:21 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/04/20 19:48:50 by qdiaz            ###   ########.fr       */
+/*   Updated: 2016/04/21 17:10:23 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_select.h"
 
-t_dblist			*lst_init(void)
+t_dblist		*lst_init(void)
 {
 	t_dblist	*tmp;
 

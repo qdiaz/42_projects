@@ -6,12 +6,13 @@
 #    By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/04/19 11:56:04 by qdiaz             #+#    #+#              #
-#    Updated: 2016/04/20 19:07:11 by qdiaz            ###   ########.fr        #
+#    Updated: 2016/04/21 17:03:15 by qdiaz            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = ft_select
-SRC = main.c	init_term.c		tools.c
+SRC = main.c init_term.c tools.c ft_select.c ft_action.c ft_key.c\
+	  ft_print.c ft_size.c list_tools.c ft_signal.c
 OBJ = $(SRC:.c=.o)
 LIB = ./libft/libft.a
 FLAGS = -Wall -Wextra -Werror
