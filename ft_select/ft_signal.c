@@ -6,7 +6,7 @@
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/21 16:35:20 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/04/21 19:00:16 by qdiaz            ###   ########.fr       */
+/*   Updated: 2016/04/22 15:41:31 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ static void		ft_sig_cont(void)
 	termi->term.c_cc[VMIN] = 1;
 	termi->term.c_cc[VTIME] = 0;
 	tcsetattr(0, 0, &(termi->term));
-	tputs(tgetstr("ti", NULL), 1, ft_myputchar);
 	tputs(tgetstr("vi", NULL), 1, ft_myputchar);
 	signal(SIGTSTP, ft_catch_signal);
 	ft_resize();

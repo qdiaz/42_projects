@@ -6,7 +6,7 @@
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/20 16:55:38 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/04/21 17:41:50 by qdiaz            ###   ########.fr       */
+/*   Updated: 2016/04/22 15:41:05 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ int			ft_myputchar(int c)
 
 void		screen_clear(void)
 {
-	tputs(tgetstr("cl", NULL), 1, ft_myputchar);
+	tputs(tgetstr("rc", NULL), 1, ft_myputchar);
+	tputs(tgetstr("cd", NULL), 1, ft_myputchar);
 }
 
 t_term		*ft_stock(t_term *termi, int i)

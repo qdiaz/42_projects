@@ -6,7 +6,7 @@
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/20 16:53:42 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/04/21 16:30:25 by qdiaz            ###   ########.fr       */
+/*   Updated: 2016/04/22 15:41:02 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ int				ft_init_termios(t_term *termi)
 	termi->nb_row = win.ws_row;
 	if (tcsetattr(0, 0, &(termi->term)) == -1)
 		return (0);
-	tputs(tgetstr("ti", NULL), 1, ft_myputchar);
 	tputs(tgetstr("vi", NULL), 1, ft_myputchar);
 	return (1);
 }
