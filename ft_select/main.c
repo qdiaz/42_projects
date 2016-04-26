@@ -6,7 +6,7 @@
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/20 15:35:35 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/04/22 15:41:40 by qdiaz            ###   ########.fr       */
+/*   Updated: 2016/04/26 15:53:37 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ int				main(int argc, char **argv)
 	t_term		termi;
 
 	(void)argc;
-	signal(SIGINT, SIG_IGN);
+//	signal(SIGINT, SIG_IGN);
 	termi.dblist = NULL;
-	ft_signal(&termi);
+//	ft_signal(&termi);
 	if (!ft_init_termios(&termi))
 		return (-1);
 	if (argc >= 2)

@@ -6,7 +6,7 @@
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/21 14:57:04 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/04/22 15:26:35 by qdiaz            ###   ########.fr       */
+/*   Updated: 2016/04/26 16:08:45 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,14 +55,18 @@ static void		ft_behaviour(t_dblist *list)
 
 void			ft_print(t_term *termi)
 {
+	int			i;
 	t_dblist	*tmp;
 
+	i = 0;
 	tmp = NULL;
 	ft_behaviour(termi->dblist);
 	tmp = termi->dblist->next;
 	while (tmp != termi->dblist)
 	{
+		ft_op_display(termi, i);
 		ft_behaviour(tmp);
 		tmp = tmp->next;
+		i++;
 	}
 }

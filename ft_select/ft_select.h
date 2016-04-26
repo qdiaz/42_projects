@@ -6,7 +6,7 @@
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/20 15:32:28 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/04/21 19:00:19 by qdiaz            ###   ########.fr       */
+/*   Updated: 2016/04/26 16:27:47 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,9 @@ void				ft_stock_tab(t_term *termi);
 void				ft_return_key(t_term *termi);
 int					ft_key(t_term *termi);
 void				ft_print_enter(t_term *termi);
-void				ft_signal(t_term *termi);
-void				ft_catch_signal(int i);
-
+int					max_size(t_term *termi);
+int					list_size(t_term *termi);
+int					nb_max_col(t_term *termi, int max);
+int					strlenint(char *str);
+void				ft_op_display(t_term *termi, int i);
 #endif

@@ -6,7 +6,7 @@
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/21 15:20:33 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/04/22 15:37:20 by qdiaz            ###   ########.fr       */
+/*   Updated: 2016/04/26 15:34:58 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void			ft_return_key(t_term *termi)
 	ft_stock_tab(termi);
 }
 
-static void		ft_simple_key(t_term *termi, char *buffer[5])
+static void		ft_manage_key(t_term *termi, char *buffer[5])
 {
 	if (BUFFER == DOWN_KEY)
 		ft_down(termi);
@@ -98,7 +98,7 @@ int				ft_key(t_term *termi)
 		return (0);
 	if (ft_check_size(termi))
 	{
-		ft_simple_key(termi, buffer);
+		ft_manage_key(termi, buffer);
 		if (BUFFER == DEL_KEY || BUFFER == SUP_KEY)
 		{
 			if (!ft_delete(termi))
