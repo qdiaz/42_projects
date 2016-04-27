@@ -6,7 +6,7 @@
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/21 14:57:04 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/04/26 16:08:45 by qdiaz            ###   ########.fr       */
+/*   Updated: 2016/04/27 18:55:21 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,16 +55,36 @@ static void		ft_behaviour(t_dblist *list)
 
 void			ft_print(t_term *termi)
 {
+	int			nb_col;
+	int			nb_files_in_col;
 	int			i;
+	int			j;
 	t_dblist	*tmp;
 
-	i = 0;
+	i = 1;
+	j = 0;
+	nb_col = termi->nb_col / (max_size(termi) + 2);
+	//ft_putnbr(nb_col);
+	nb_files_in_col = (list_size(termi) + 1) / (nb_col);
+	//ft_putnbr(nb_files_in_col);
 	tmp = NULL;
 	ft_behaviour(termi->dblist);
 	tmp = termi->dblist->next;
 	while (tmp != termi->dblist)
 	{
-		ft_op_display(termi, i);
+		if (!(i % (nb_files_in_col + 1)))
+		{
+			tputs(tgetstr("rc", NULL), 1, ft_myputchar);
+			while (j++ <= (max_size(termi)) * i)
+				tputs(tgetstr("nd", NULL), 1, ft_myputchar);
+		}
+		else
+		{
+			tputs(tgetstr("cr", NULL), 1, ft_myputchar);
+			while (j++ <= (max_size(termi)) * (i - 1))
+				tputs(tgetstr("nd", NULL), 1, ft_myputchar);
+		}
+		j = 0;
 		ft_behaviour(tmp);
 		tmp = tmp->next;
 		i++;

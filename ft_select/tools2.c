@@ -6,7 +6,7 @@
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 14:17:46 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/04/26 17:49:10 by qdiaz            ###   ########.fr       */
+/*   Updated: 2016/04/27 14:53:07 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,14 @@ void		ft_op_display(t_term *termi, int i)
 
 	tmp = NULL;
 	tmp = termi->dblist->next;
+	i = 0;
 	j = 0;
-	nb_col = termi->nb_col / (max_size(termi) + 2);
-	nb_files_in_col = (list_size(termi) + 1) / nb_col;
+	nb_col = termi->nb_col / (list_size(termi));
+	nb_files_in_col = (list_size(termi)) / nb_col;
 	if (list_size(termi) / nb_col < termi->nb_row)
 	{
-		if (i % nb_files_in_col == 0)
-			while (j++ <= max_size(termi) + 2)
-				tputs(tgetstr("nd", NULL), 1, ft_myputchar);
-		tputs(tgetstr("up", NULL), 1, ft_myputchar);
-		j = 0;
+		ft_putnbr(nb_col);
+		ft_putnbr(nb_files_in_col);
 	}
 	else
 		ft_putendl_fd("Too small", 2);
