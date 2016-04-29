@@ -6,12 +6,12 @@
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/21 14:57:04 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/04/27 18:55:21 by qdiaz            ###   ########.fr       */
+/*   Updated: 2016/04/29 18:57:30 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_select.h"
-
+#include <stdio.h>
 static void		ft_under_line(char *str)
 {
 	tputs(tgetstr("us", NULL), 1, ft_myputchar);
@@ -55,38 +55,20 @@ static void		ft_behaviour(t_dblist *list)
 
 void			ft_print(t_term *termi)
 {
-	int			nb_col;
-	int			nb_files_in_col;
 	int			i;
-	int			j;
+	int			max;
 	t_dblist	*tmp;
 
 	i = 1;
-	j = 0;
-	nb_col = termi->nb_col / (max_size(termi) + 2);
-	//ft_putnbr(nb_col);
-	nb_files_in_col = (list_size(termi) + 1) / (nb_col);
-	//ft_putnbr(nb_files_in_col);
+	max = -1;
 	tmp = NULL;
 	ft_behaviour(termi->dblist);
 	tmp = termi->dblist->next;
-	while (tmp != termi->dblist)
-	{
-		if (!(i % (nb_files_in_col + 1)))
+		while (tmp != termi->dblist)
 		{
-			tputs(tgetstr("rc", NULL), 1, ft_myputchar);
-			while (j++ <= (max_size(termi)) * i)
-				tputs(tgetstr("nd", NULL), 1, ft_myputchar);
+			max = ft_op_display(termi, i, max);
+			i++;
+			ft_behaviour(tmp);
+			tmp = tmp->next;
 		}
-		else
-		{
-			tputs(tgetstr("cr", NULL), 1, ft_myputchar);
-			while (j++ <= (max_size(termi)) * (i - 1))
-				tputs(tgetstr("nd", NULL), 1, ft_myputchar);
-		}
-		j = 0;
-		ft_behaviour(tmp);
-		tmp = tmp->next;
-		i++;
-	}
 }

@@ -6,32 +6,29 @@
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 14:17:46 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/04/27 14:53:07 by qdiaz            ###   ########.fr       */
+/*   Updated: 2016/04/29 18:57:27 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_select.h"
 
-void		ft_op_display(t_term *termi, int i)
+int		ft_op_display(t_term *termi, int i, int max)
 {
-	int			nb_files_in_col;
 	int			nb_col;
+	int			nb_files_in_col;
 	int			j;
-	t_dblist	*tmp;
 
-	tmp = NULL;
-	tmp = termi->dblist->next;
-	i = 0;
 	j = 0;
-	nb_col = termi->nb_col / (list_size(termi));
-	nb_files_in_col = (list_size(termi)) / nb_col;
-	if (list_size(termi) / nb_col < termi->nb_row)
+	nb_col = termi->nb_col / (max_size(termi) + 2);
+	nb_files_in_col = (list_size(termi) + 1) / (nb_col - 1);
+	if (i % (nb_files_in_col + 1) == 0)
 	{
-		ft_putnbr(nb_col);
-		ft_putnbr(nb_files_in_col);
+		tputs(tgetstr("rc", NULL), 1, ft_myputchar);
+		max += (max_size(termi) + 2);
 	}
-	else
-		ft_putendl_fd("Too small", 2);
+	while (j++ <= max)
+		tputs(tgetstr("nd", NULL), 1, ft_myputchar);
+	return (max);
 }
 
 int			strlenint(char *str)

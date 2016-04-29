@@ -6,7 +6,7 @@
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/20 15:32:28 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/04/27 14:23:33 by qdiaz            ###   ########.fr       */
+/*   Updated: 2016/04/29 18:57:35 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,5 +94,5 @@ int					max_size(t_term *termi);
 int					list_size(t_term *termi);
 int					nb_max_col(t_term *termi, int max);
 int					strlenint(char *str);
-void				ft_op_display(t_term *termi, int i);
+int					ft_op_display(t_term *termi, int i, int max);
 #endif
