@@ -6,7 +6,7 @@
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 14:17:46 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/04/29 18:57:27 by qdiaz            ###   ########.fr       */
+/*   Updated: 2016/05/03 18:26:05 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int		ft_op_display(t_term *termi, int i, int max)
 	}
 	while (j++ <= max)
 		tputs(tgetstr("nd", NULL), 1, ft_myputchar);
+	tputs(tgetstr("am", NULL), 1, ft_myputchar);
 	return (max);
 }
 

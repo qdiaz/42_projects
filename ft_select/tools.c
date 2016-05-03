@@ -6,7 +6,7 @@
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/20 16:55:38 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/04/22 15:41:05 by qdiaz            ###   ########.fr       */
+/*   Updated: 2016/05/02 18:20:25 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void		screen_clear(void)
 
 t_term		*ft_stock(t_term *termi, int i)
 {
-	t_term *tmp = NULL;
+	static t_term *tmp = NULL;
 
 	if (i == 0)
 		tmp = termi;

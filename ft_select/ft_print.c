@@ -6,7 +6,7 @@
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/21 14:57:04 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/04/29 18:57:30 by qdiaz            ###   ########.fr       */
+/*   Updated: 2016/05/03 18:28:02 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void		ft_under_line(char *str)
 static void		ft_print_select(char *str)
 {
 	tputs(tgetstr("so", NULL), 1, ft_myputchar);
-	ft_putstr_fd("\033[1;31m", 2);
+	ft_putstr_fd("\033[32m", 2);
 	ft_putendl_fd(str, 2);
 	ft_putstr_fd("\033[00m", 2);
 	tputs(tgetstr("se", NULL), 1, ft_myputchar);

@@ -6,7 +6,7 @@
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/21 16:35:20 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/04/22 15:41:31 by qdiaz            ###   ########.fr       */
+/*   Updated: 2016/05/03 18:28:08 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ static void		ft_sig_stop(void)
 	cp[0] = termi->term.c_cc[VSUSP];
 	cp[1] = 0;
 	termi->term.c_lflag |= (ICANON | ECHO);
-	screen_clear();
+	signal(SIGTSTP, SIG_DFL);
+	//screen_clear();
 	tcsetattr(0, 0, &(termi->term));
 	tputs(tgetstr("te", NULL), 1, ft_myputchar);
 	tputs(tgetstr("ve", NULL), 1, ft_myputchar);
@@ -39,8 +40,9 @@ static void		ft_sig_cont(void)
 	termi->term.c_cc[VMIN] = 1;
 	termi->term.c_cc[VTIME] = 0;
 	tcsetattr(0, 0, &(termi->term));
+//	tputs(tgetstr("ti", NULL), 1, ft_myputchar);
 	tputs(tgetstr("vi", NULL), 1, ft_myputchar);
-	signal(SIGTSTP, ft_catch_signal);
+	signal(SIGTSTP, ft_catch);
 	ft_resize();
 	ft_check_size(termi);
 }
@@ -55,7 +57,7 @@ static void		ft_interrupt(void)
 	exit(0);
 }
 
-void			ft_catch_signal(int i)
+void			ft_catch(int i)
 {
 	if (i == SIGCONT)
 		ft_sig_cont();
@@ -67,20 +69,14 @@ void			ft_catch_signal(int i)
 		ft_interrupt();
 }
 
-void			ft_signal(t_term *termi)
+void			ft_signal(void)
 {
 	int i;
 
 	i = 1;
 	while (i < 32)
 	{
-		if (signal(SIGINT, SIG_DFL))
-		{
-			termi->term.c_lflag &= ~(ICANON | ECHO);
-			termi->term.c_cc[VMIN] = 1;
-			termi->term.c_cc[VTIME] = 0;
-		}
-		signal(i, ft_catch_signal);
+		signal(i, ft_catch);
 		i++;
 	}
 }

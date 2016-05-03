@@ -6,7 +6,7 @@
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/21 15:07:15 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/04/22 15:35:51 by qdiaz            ###   ########.fr       */
+/*   Updated: 2016/05/03 15:04:48 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int		ft_check_size(t_term *termi)
 			|| termi->nb_col - 2 < termi->count[1])
 	{
 		screen_clear();
-		ft_putendl_fd("Windows size too small.", 2);
+		ft_putendl_fd("Window size too small.", 2);
 		return (0);
 	}
 	else
