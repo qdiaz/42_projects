@@ -6,7 +6,7 @@
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/21 15:07:15 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/05/03 15:04:48 by qdiaz            ###   ########.fr       */
+/*   Updated: 2016/05/17 15:35:58 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,25 @@
 
 int		ft_check_size(t_term *termi)
 {
-	if (termi->nb_row - 2 < termi->count[0]
-			|| termi->nb_col - 2 < termi->count[1])
+	int		nb_col;
+	int		nb_files_in_col;
+
+	if (termi->nb_col > (max_size(termi) + 2))
 	{
-		screen_clear();
-		ft_putendl_fd("Window size too small.", 2);
-		return (0);
-	}
-	else
-	{
-		screen_clear();
-		ft_print(termi);
+		nb_col = termi->nb_col / (max_size(termi) + 2);
+		nb_files_in_col = (list_size(termi) + 1) / nb_col;
+		if ((nb_files_in_col + 1) > (termi->nb_row - 1) ||
+			nb_col < 1)
+		{
+			tputs(tgetstr("cl", NULL), 1, ft_myputchar);
+			ft_putendl_fd("Window size too small.", 2);
+			return (0);
+		}
+		else
+		{
+			screen_clear();
+			ft_print(termi);
+		}
 	}
 	return (1);
 }

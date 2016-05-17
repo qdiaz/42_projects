@@ -6,7 +6,7 @@
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/20 15:35:35 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/05/03 18:26:49 by qdiaz            ###   ########.fr       */
+/*   Updated: 2016/05/17 13:16:05 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 
 static int		ft_do_select(char **argv, t_term *termi)
 {
-	tputs(tgetstr("cr", NULL), 1, ft_myputchar);
+	//screen_clear();
+	//tputs(tgetstr("cr", NULL), 1, ft_myputchar);
+	tputs(tgetstr("cl", NULL), 1, ft_myputchar);
 	tputs(tgetstr("sc", NULL), 1, ft_myputchar);
 	arg_to_list(argv, termi);
 	count_col(termi);

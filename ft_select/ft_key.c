@@ -6,7 +6,7 @@
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/21 15:20:33 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/04/26 15:34:58 by qdiaz            ###   ########.fr       */
+/*   Updated: 2016/05/17 17:45:33 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,10 @@ static void		ft_manage_key(t_term *termi, char *buffer[5])
 		ft_down(termi);
 	if (BUFFER == UP_KEY)
 		ft_up(termi);
+	if (BUFFER == LEFT_KEY)
+		ft_left(termi);
+	if (BUFFER == RIGHT_KEY)
+		ft_right(termi);
 	if (BUFFER == SPACE_KEY)
 		ft_space_key(termi);
 	if (BUFFER == HOME_KEY)

@@ -6,7 +6,7 @@
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/21 16:35:20 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/05/03 18:28:08 by qdiaz            ###   ########.fr       */
+/*   Updated: 2016/05/17 15:36:06 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,12 +71,15 @@ void			ft_catch(int i)
 
 void			ft_signal(void)
 {
-	int i;
+	/*int i;
 
 	i = 1;
 	while (i < 32)
 	{
 		signal(i, ft_catch);
 		i++;
-	}
+	}*/
+	signal(SIGCONT, ft_catch);
+	signal(SIGTSTP, ft_catch);
+	signal(SIGWINCH, ft_catch);
 }
