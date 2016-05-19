@@ -6,27 +6,27 @@
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/21 14:57:04 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/05/17 15:37:54 by qdiaz            ###   ########.fr       */
+/*   Updated: 2016/05/19 16:21:42 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_select.h"
-#include <stdio.h>
+
 static void		ft_under_line(char *str)
 {
 	tputs(tgetstr("us", NULL), 1, ft_myputchar);
-	ft_putstr_fd("\033[32m", 2);
-	ft_putendl_fd(str, 2);
-	ft_putstr_fd("\033[00m", 2);
+	ft_putstr_fd("\033[32m", 0);
+	ft_putendl_fd(str, 0);
+	ft_putstr_fd("\033[00m", 0);
 	tputs(tgetstr("ue", NULL), 1, ft_myputchar);
 }
 
 static void		ft_print_select(char *str)
 {
 	tputs(tgetstr("so", NULL), 1, ft_myputchar);
-	ft_putstr_fd("\033[32m", 2);
-	ft_putendl_fd(str, 2);
-	ft_putstr_fd("\033[00m", 2);
+	ft_putstr_fd("\033[32m", 0);
+	ft_putendl_fd(str, 0);
+	ft_putstr_fd("\033[00m", 0);
 	tputs(tgetstr("se", NULL), 1, ft_myputchar);
 }
 
@@ -34,9 +34,9 @@ static void		ft_underline(char *str)
 {
 	tputs(tgetstr("us", NULL), 1, ft_myputchar);
 	tputs(tgetstr("so", NULL), 1, ft_myputchar);
-	ft_putstr_fd("\033[1;36m", 2);
-	ft_putendl_fd(str, 2);
-	ft_putstr_fd("\033[00m", 2);
+	ft_putstr_fd("\033[1;36m", 0);
+	ft_putendl_fd(str, 0);
+	ft_putstr_fd("\033[00m", 0);
 	tputs(tgetstr("se", NULL), 1, ft_myputchar);
 	tputs(tgetstr("ue", NULL), 1, ft_myputchar);
 }
@@ -64,11 +64,11 @@ void			ft_print(t_term *termi)
 	tmp = NULL;
 	ft_behaviour(termi->dblist);
 	tmp = termi->dblist->next;
-		while (tmp != termi->dblist)
-		{
-			max = ft_op_display(termi, i, max);
-			i++;
-			ft_behaviour(tmp);
-			tmp = tmp->next;
-		}
+	while (tmp != termi->dblist)
+	{
+		max = ft_op_display(termi, i, max);
+		i++;
+		ft_behaviour(tmp);
+		tmp = tmp->next;
+	}
 }

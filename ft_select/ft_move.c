@@ -6,7 +6,7 @@
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/17 17:23:23 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/05/17 17:59:28 by qdiaz            ###   ########.fr       */
+/*   Updated: 2016/05/19 14:47:05 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 void		ft_left(t_term *termi)
 {
-	int i;
-	int nb_col;
-	int nb_files_in_col;
-	t_dblist *tmp;
+	int			i;
+	int			nb_col;
+	int			nb_files_in_col;
+	t_dblist	*tmp;
 
 	tmp = termi->dblist;
 	nb_col = termi->nb_col / (max_size(termi) + 2);
@@ -29,7 +29,7 @@ void		ft_left(t_term *termi)
 	while (nb_files_in_col-- + 1)
 	{
 		if (tmp == termi->dblist)
-			break;
+			break ;
 		tmp = tmp->prev;
 	}
 	tmp->line = 1;
@@ -37,10 +37,10 @@ void		ft_left(t_term *termi)
 
 void		ft_right(t_term *termi)
 {
-	int i;
-	int nb_col;
-	int nb_files_in_col;
-	t_dblist *tmp;
+	int			i;
+	int			nb_col;
+	int			nb_files_in_col;
+	t_dblist	*tmp;
 
 	tmp = termi->dblist;
 	nb_col = termi->nb_col / (max_size(termi) + 2);
@@ -52,7 +52,7 @@ void		ft_right(t_term *termi)
 	while (nb_files_in_col-- + 1)
 	{
 		if (tmp->next == termi->dblist)
-			break;
+			break ;
 		tmp = tmp->next;
 	}
 	tmp->line = 1;

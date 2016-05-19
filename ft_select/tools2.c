@@ -6,13 +6,13 @@
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/26 14:17:46 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/05/17 17:35:01 by qdiaz            ###   ########.fr       */
+/*   Updated: 2016/05/19 14:49:50 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_select.h"
 
-int		ft_op_display(t_term *termi, int i, int max)
+int				ft_op_display(t_term *termi, int i, int max)
 {
 	int			nb_col;
 	int			nb_files_in_col;
@@ -31,7 +31,7 @@ int		ft_op_display(t_term *termi, int i, int max)
 	return (max);
 }
 
-int			strlenint(char *str)
+int				strlenint(char *str)
 {
 	int		i;
 
@@ -41,7 +41,7 @@ int			strlenint(char *str)
 	return (i);
 }
 
-int			nb_max_col(t_term *termi, int max)
+int				nb_max_col(t_term *termi, int max)
 {
 	int		res;
 
@@ -49,7 +49,7 @@ int			nb_max_col(t_term *termi, int max)
 	return (res);
 }
 
-int			list_size(t_term *termi)
+int				list_size(t_term *termi)
 {
 	t_dblist	*tmp;
 	int			size;
@@ -65,7 +65,7 @@ int			list_size(t_term *termi)
 	return (size);
 }
 
-int			max_size(t_term *termi)
+int				max_size(t_term *termi)
 {
 	t_dblist	*tmp;
 	int			max_len;

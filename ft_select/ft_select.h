@@ -6,7 +6,7 @@
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/04/20 15:32:28 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/05/17 17:31:58 by qdiaz            ###   ########.fr       */
+/*   Updated: 2016/05/19 15:47:23 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ typedef struct		s_term
 {
 	struct termios	term;
 	char			*name_term;
+	int				fd;
 	int				nb_col;
 	int				nb_row;
 	int				enter;
@@ -96,7 +97,6 @@ int					nb_max_col(t_term *termi, int max);
 int					strlenint(char *str);
 int					ft_op_display(t_term *termi, int i, int max);
 void				ft_signal(void);
-void				ft_catch(int i);
 void				ft_left(t_term *termi);
 void				ft_right(t_term *termi);
 
