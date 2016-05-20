@@ -6,7 +6,7 @@
 #    By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/04/19 11:56:04 by qdiaz             #+#    #+#              #
-#    Updated: 2016/05/17 17:35:21 by qdiaz            ###   ########.fr        #
+#    Updated: 2016/05/20 14:16:48 by qdiaz            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ $(NAME): $(OBJ)
 	echo "\\033[1;34mGenerating objects... Please wait\\033[0;39m"
 	make -C ./libft
 	echo "\\033[36mcompiling $(NAME)...\\033[0;39m"
-	gcc $(FLAGS) -lncurses $(OBJ) $(LIB) -o $(NAME)
+	gcc $(FLAGS) -ltermcap $(OBJ) $(LIB) -o $(NAME)
 	echo "\\033[32m$(NAME) has been created !\\033[0;39m"
 
 all: $(NAME)
