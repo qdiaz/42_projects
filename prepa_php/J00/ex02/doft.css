@@ -1,0 +1,147 @@
+HTML {
+	background-color: #505050;
+}
+
+.HEADER {
+	width: 1423px;
+	height: 138px; 
+	background-color: #909090;
+	border-radius: 10px 10px 10px 10px;
+	margin: 15px auto;
+	box-shadow: 5px 5px 5px 5px #212121;
+	clear: both;
+}
+
+.CONTENT {
+	width: 1366px;
+	height: 582px;
+	margin: 20px auto;
+	clear: both;
+}
+
+.LEFT {
+	float: left;
+	width: 142px;
+	height: 425px;
+	background-color: #909090;
+	border-radius: 10px 10px 10px 10px;
+	box-shadow: 5px 5px 5px 5px;
+	clear: both;
+}
+
+.MIDDLE {
+	float: left;
+	width: 1022px;
+	height: 583px;
+	background-color: #909090;
+	border-radius: 10px 10px 10px 10px;
+	box-shadow: 5px 5px 5px 5px;
+	margin: 0px 30px;
+}
+
+.RIGHT {
+	float: left;
+	width: 142px;
+	height: 425px;
+	background-color: #909090;
+	border-radius: 10px 10px 10px 10px;
+	box-shadow: 5px 5px 5px 5px;
+}
+
+.IMG_TITLE {
+	float: left;
+	margin: 10px;
+	width: 435px;
+	height: 122px;
+}
+
+.IMG_RELOAD {
+	float: right;
+	width: 20px;
+	height: 20px;
+	margin: 10px;
+}
+
+.IMG_CLOSE {
+	clear: right;
+	float: right;
+	width: 20px;
+	height: 20px;
+	margin-right: 10px;
+	margin-top: 70px;
+}
+
+.IMG_LOUPE {
+	float: right;
+	width: 238px;
+	height: 136px;
+	margin-top: -20px;
+	margin-right: 10px;
+}
+
+.IMG_LEFT {
+	float: left;
+	width: 70px;
+	height: 70px;
+	margin-left: 35px;
+	margin-top:10px;
+}
+
+.SELECTED {
+	border: 5px solid red;
+}
+
+.IMG_BOOK {
+	float: left;
+	width: 50px;
+	height: 65px;
+	margin-left: 35px;
+	margin-top: 20px;
+}
+
+.IMG_TOWEL {
+	float: left;
+	width: 50px;
+	height: 45px;
+	margin-left: 40px;
+	margin-top: 10px;
+}
+
+.BRICK_REPEAT {
+	float: left;
+	width: 120px;
+	height: 70px;
+	margin-left: 10px;
+	margin-top: 10px;
+	background-image: url("./ressources/brick.png");
+}
+
+.IMG_CLUSTER {
+	width: 1000px;
+	height: 562px;
+	margin-left: 8px;
+	margin-top: 8px;
+}
+
+.CHAT {
+	float: left;
+	width: 520px;
+	height: 163px;
+	background-color: #88FF89;
+	border-radius: 10px 10px 10px 10px;
+	box-shadow: 5px 5px 5px 5px;
+	margin-left: 10%;
+	margin-top: -100px;
+}
+
+P {
+	margin: 10px;
+}
+
+.ORDI {
+	text-shadow: 5px 5px 3px #BA8047;
+}
+
+.YOLO {
+	line-height : 4px;
+}
