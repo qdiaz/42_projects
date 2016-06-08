@@ -1,0 +1,51 @@
+HTML {
+	background-color : #303030;
+ }
+ TD {
+	 font-size: 2vw;
+	 text-align: center;
+	 height: 30px;
+	 width: 60px;
+}
+TD:hover {
+	color: white;
+}
+TABLE {
+	float: auto;
+	width: 80%;
+	height: 20%;
+	text-align: center;
+}
+H1 {
+	color: red;
+}
+.EXCEPT {background-color: #FD6C9E;}
+.RED {background-color: red;}
+.GREEN {background-color: green;}
+.LIGHTGREEN {background-color: #00FE7E;}
+.PURPLE {background-color: #BD33A4;}
+.ORANGE {background-color: #ED7F10;}
+.EGG {background-color: #FDE9E0;}
+.LIGHTBLUE {background-color: #A9EAFE;}
+.BLUE {background-color: #3A8EBA;}
+.SPEC1 {background-color: #FEE7F0;}
+.SPEC2 {background-color: #F0C300;}
+.NAME {
+	font-size: 2vw;
+	height: 3vw;
+}
+.NATOM {
+	height: 1vw;
+	font-size: 1vw;
+	text-align: left;
+	margin-top: -1vw;
+	margin-left: 5%;
+	margin-bottom: 5%;
+}
+.MASSE {
+	height: 1vw;
+	font-size: 1vw;
+	text-align: right;
+	margin-top: 5%;
+	margin-right: 5%;
+}
