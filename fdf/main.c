@@ -6,7 +6,7 @@
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/26 14:05:23 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/05/26 14:51:35 by qdiaz            ###   ########.fr       */
+/*   Updated: 2016/06/06 14:58:07 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,13 @@ void	calc_coord(t_point *coord, int x, int y, int **map)
 	coord->y = 100 * x + 100 * y;
 	coord->y /= 100;
 	coord->y -= map[y][x] * 0.15;
+	//coord->y -= map[y][x] * coord->delta;
 	coord->x *= 12;
 	coord->y *= 8;
+	//coord->x += coord->pos_x;
+	//coord->y += coord->pos_y;
 	coord->x += 300;
-	coord->y += 270;
+	coord->y += 300;
 }
 
 
@@ -75,7 +78,7 @@ int		main(int ac, char **av)
 		e.win = mlx_new_window(e.mlx, e.height, e.width, "42 - FDF");
 		e.img = img;
 		mlx_put_image_to_window(e.mlx, e.win, img.img, 0, 0);
-		mlx_key_hook(e.win, key_hook, &e);
+		mlx_key_hook(e.win, key_hook_manager, &e);
 		mlx_expose_hook(e.win, expose_hook, &e);
 		mlx_loop(e.mlx);
 	}

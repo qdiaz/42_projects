@@ -6,12 +6,12 @@
 #    By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/04/19 11:56:04 by qdiaz             #+#    #+#              #
-#    Updated: 2016/05/26 14:49:11 by qdiaz            ###   ########.fr        #
+#    Updated: 2016/06/01 15:15:57 by qdiaz            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = fdf
-SRC = main.c color.c draw.c parsing.c tools.c
+SRC = main.c color.c draw.c parsing.c tools.c event_test.c
 OBJ = $(SRC:.c=.o)
 LIB = -L./libft -lft -lmlx -framework OpenGL -framework AppKit
 FLAGS = -Wall -Wextra -Werror

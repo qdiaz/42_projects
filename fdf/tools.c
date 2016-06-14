@@ -6,7 +6,7 @@
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/26 14:06:51 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/05/26 14:07:21 by qdiaz            ###   ########.fr       */
+/*   Updated: 2016/06/06 14:59:05 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,13 @@ int		ft_abs(int a, int b)
 	if (c < 0)
 		c *= -1;
 	return (c);
+}
+
+void	init_parse(void)
+{
+	t_point	pt;
+
+	pt.pos_x = 0;
+	pt.pos_y = 0;
+	pt.delta = 1;
 }

@@ -6,7 +6,7 @@
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/19 15:25:12 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/05/19 17:38:44 by qdiaz            ###   ########.fr       */
+/*   Updated: 2016/05/20 16:26:19 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,8 @@
 
 static void		ft_resize2(int sig)
 {
-	static t_term	*termi;
-
 	(void)sig;
-	termi = NULL;
-	termi = ft_stock(termi, 1);
-	tputs(tgetstr("rc", NULL), 1, ft_myputchar);
-	tputs(tgetstr("cd", NULL), 1, ft_myputchar);
-	ft_print(termi);
+	ft_resize();
 }
 
 static void		ft_stop_term(int sig)

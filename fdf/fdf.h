@@ -6,7 +6,7 @@
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/26 14:04:38 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/05/26 14:51:30 by qdiaz            ###   ########.fr       */
+/*   Updated: 2016/06/06 14:52:38 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,9 @@ typedef struct	s_point
 	int		x;
 	int		y;
 	int		z;
+	int		pos_x;
+	int		pos_y;
+	double	delta;
 }				t_point;
 
 typedef struct	s_img
@@ -41,9 +44,11 @@ typedef struct	s_env
 	int		height;
 	int		width;
 	t_img	img;
+	t_point	pt;
 }				t_env;
 
-void	do_zoom(int keycode, t_env *env);
+void	init_parse(void);
+int		key_hook_manager(int keycode, t_env *env);
 int		ft_abs(int a, int b);
 void	calc_stop(int x, int y, int **map, int *stop);
 void	draw_pixel(t_img *img, int heigth, int width, int color);
