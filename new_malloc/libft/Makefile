@@ -6,7 +6,7 @@
 #    By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/26 13:00:32 by qdiaz             #+#    #+#              #
-#    Updated: 2017/09/21 15:42:40 by qdiaz            ###   ########.fr        #
+#    Updated: 2017/09/21 18:51:57 by qdiaz            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -88,7 +88,8 @@ SRCS = ft_atoi.c\
 	   ft_tablen.c\
 	   ft_tabswap.c\
 	   ft_freetab.c\
-	   ft_tabdup.c
+	   ft_tabdup.c\
+	   ft_print_memory.c
 
 OBJS = $(SRCS:.c=.o)
 	INCLUDE = ./include/

@@ -6,7 +6,7 @@
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/21 15:46:20 by qdiaz             #+#    #+#             */
-/*   Updated: 2017/09/21 16:58:03 by qdiaz            ###   ########.fr       */
+/*   Updated: 2017/09/21 18:54:56 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,5 +81,5 @@ void		split_block(t_block **block, size_t size)
 	trash_block->free = 1;
 	trash_block->mem = trash_block + 1;
 	new_block->size = size;
-	scrap_block->next = next_block;
+	trash_block->next = next_block;
 }

@@ -6,7 +6,7 @@
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/21 15:46:26 by qdiaz             #+#    #+#             */
-/*   Updated: 2017/09/21 17:14:10 by qdiaz            ###   ########.fr       */
+/*   Updated: 2017/09/21 18:55:50 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	*tiny(size_t size)
 {
 	t_block *block;
 
-	if ((block = check_size(g_zone.tiny, size)))
+	if ((block = check_size(&(g_zone.tiny), size)))
 		add_block(&block, size);
 	else if ((block = check_free_block(&(g_zone.tiny),
 					size + sizeof(t_block))))
@@ -30,7 +30,7 @@ void	*small(size_t size)
 {
 	t_block *block;
 
-	if ((block = check_size(g_zone.small, size)))
+	if ((block = check_size(&(g_zone.small), size)))
 		add_block(&block, size);
 	else if ((block = check_free_block(&(g_zone.small),
 					size + sizeof(t_block))))

@@ -6,7 +6,7 @@
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/26 13:37:15 by qdiaz             #+#    #+#             */
-/*   Updated: 2016/03/17 11:14:12 by qdiaz            ###   ########.fr       */
+/*   Updated: 2017/09/21 18:51:30 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,4 +98,6 @@ void				ft_freetab(char **tab);
 int					ft_tablen(char **tab);
 void				ft_tabswap(char **s1, char **s2);
 char				**ft_tabdup(char **tab);
+void				ft_print_hexa(unsigned long addr);
+void				ft_print_memory(void *mem);
 #endif
