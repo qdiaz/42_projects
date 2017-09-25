@@ -6,7 +6,7 @@
 /*   By: qdiaz <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/21 15:33:39 by qdiaz             #+#    #+#             */
-/*   Updated: 2017/09/21 18:56:59 by qdiaz            ###   ########.fr       */
+/*   Updated: 2017/09/25 15:36:22 by qdiaz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,5 +70,8 @@ t_block				*check_size(t_block **head, size_t size);
 t_block				*new_tiny_block(size_t size);
 t_block				*new_small_block(size_t size);
 t_block				*last_node(t_block **head);
+
+size_t				print_alloc_mem(t_block *block, char *typ_mem);
+void				show_alloc_mem(void);
 
 #endif
