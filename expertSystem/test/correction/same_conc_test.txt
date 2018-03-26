@@ -1,0 +1,9 @@
+B => A
+C => A
+
+= # OK
+#=B # OK
+#=C # OK
+#=BC # OK
+
+?A
